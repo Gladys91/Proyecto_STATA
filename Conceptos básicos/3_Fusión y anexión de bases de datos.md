@@ -67,20 +67,29 @@ Luego de juntar ambas bases deseamos agregar una nueva variable que indique la c
 
 ![image](https://user-images.githubusercontent.com/106888200/221700547-07e370f7-0c84-4507-aa55-15a0d0ad1e06.png)
 
-Debemos eliminar la variable _merge creada previamente con el comando drop _merge.
+Debemos eliminar la variable _merge creada previamente con el comando `drop` _merge.
 
 #### 3.1.3 Algunas opciones al momento de fusionar bases
 
-Algunas opciones de gran utilidad al momento de usar el comando merge:
+Algunas opciones de gran utilidad al momento de usar el comando `merge`:
 
-- keepusing:
+- `keepusing`:
 Sirve para quedarse con solo un conjunto particular de variables de la base secundaria.
-- nogenerate o generate():
+- `nogenerate` o `generate()`:
 Al indicar nogenerate se omite la creación de la variable _merge. Lo contrario sucede al indicar generate(), en este caso se crea la variable con un nombre distinto indicado entre paréntesis.
-- noreport:
+- `noreport`:
 Con esta opción no se reportan los resultados en la ventana de resultados
-- keep( ):
+- `keep( )`:
 Esta opción sirve para indicar con qué sub grupo de datos quedarse. Por ejemplo, si se indica keepusing(3) solo se mantienen las observaciones que han empatado en ambas bases. Mientras que, de indicar 2 o 1 se mantienen los datos no empatados. Por default, se mantienen todos los datos.
+
+
+> **TIPS: identificador de la ENAHO**
+>
+> Cuando queramos fusionar distintos modulos de una encuesta es importante identificar a la unidad de observación. Por ejemplo la ENAHO, la encuesta más utilizada en Perú, tiene distintas unidades de observación de acuerdo al módulo, esto ocasiona que no todas las observaciones se fusionen. Nos es muy útil saber:
+>* La unidad de observación para los módulos individuales está compuesto por: *conglome, vivienda, hogar, codperso.*
+>* La unidad de observación para los módulos de hogar está compuesto por: *conglome, vivienda, hogar.*
+
+
 
 ### 3.1 ANEXIÓN DE BASES
 La anexión de datos es útil cuando se quieren agregar nuevas filas de datos en una base inicial. La sintaxis es más simple que en el caso de fusión de bases. 
@@ -88,11 +97,6 @@ Debemos indicar la base de datos secundaria a anexar en el espacio de filename. 
 
 ![image](https://user-images.githubusercontent.com/106888200/223335519-a615e713-7f48-4f70-8b38-59ed8c4c1245.png)
 
-> **Useful tips**
->
-> Cuando queramos fusionar distintos modulos de una encuesta es importante identificar a la unidad de observación. Por ejemplo la ENAHO, la encuesta más utilizada en Perú, tiene distintas unidades de observación de acuerdo al módulo, esto ocasiona que no todas las observaciones se fusionen. Nos es muy útil saber:
->* La unidad de observación para los módulos individuales está compuesto por: *conglome, vivienda, hogar, codperso.*
->* La unidad de observación para los módulos de hogar está compuesto por: *conglome, vivienda, hogar.*
 
 
 ## Sigue aprendiendo
@@ -102,4 +106,4 @@ Debemos indicar la base de datos secundaria a anexar en el espacio de filename. 
 |   |  |   |
 
 
-*Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/6_merge_append.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/6_merge_append.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
