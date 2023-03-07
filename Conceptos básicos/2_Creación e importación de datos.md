@@ -22,6 +22,13 @@ Creemos una base de datos de los principales equipos de fútbol del Perú junto 
 
 ![image435](https://user-images.githubusercontent.com/106888200/223178370-8458c2d4-c866-40a6-8bbb-a753df751d9a.png)
 
+
+
+> **TIPS:  `clear` vs `clear all`**
+>
+>Si bien la mayoría de la gente usa `clear` para borrar el conjunto de datos y las etiquetas, `clear all` hace borrón y cuenta nueva. Usa este último si estás trabajando matrices, mata, marcos, programas, etc.
+
+
 #### 2.1.2 Copiando datos en el editor de datos
 
 Antes de copiar una base, limpiemos el navegador de datos usando el comando clear en la ventana de comando. Abramos el excel de ejemplo, ‘cuadro-19-4, seleccionamos las filas que van desde Amazonas hasta Lima para todos los años de la siguiente manera:
@@ -156,12 +163,6 @@ Al igual que en el caso de archivos de Excel, es necesario indicar la extensión
 ![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
 
 
-> **Tips**
->
-> `clear` vs `clear all`
-> 
->Si bien la mayoría de la gente usa `clear` para borrar el conjunto de datos y las etiquetas, `clear all` hace borrón y cuenta nueva. Usa este último si estás trabajando matrices, mata, marcos, programas, etc.
-
 
 ## Sigue aprendiendo
 | Recurso  | Tema | Descripción |
@@ -170,4 +171,4 @@ Al igual que en el caso de archivos de Excel, es necesario indicar la extensión
 |               |        |         |
 
 
-*Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/5_Importar_datos.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/5_Importar_datos.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
