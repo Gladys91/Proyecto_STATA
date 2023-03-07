@@ -156,19 +156,18 @@ Al igual que en el caso de archivos de Excel, es necesario indicar la extensión
 ![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
 
 
+> **Tips**
+>
+> `clear` vs `clear all`
+> 
+>Si bien la mayoría de la gente usa `clear` para borrar el conjunto de datos y las etiquetas, `clear all` hace borrón y cuenta nueva. Usa este último si estás trabajando matrices, mata, marcos, programas, etc.
 
-```
-* Usamos el comando 'use' para cargar una base .dta
 
-use "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\OSIPTEL_personas", clear	// Cargamos una base almacenada en la computadora
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|               |        |         |
+|               |        |         |
 
-use "https://www.stata-press.com/data/r16/census5", clear // Cargamos una base almacenada en internet
 
-* Ahora, cargemos una base en ambos formatos de Excel
-import excel using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\ERM2014_Candidatos_Provincial.xlsx", clear firstrow // formato excel 
-	
-* Otros formatos
-import delimited using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\IOP_1118_01_D.csv", delimiter(",") clear // formatos .csv
-
-import delimited using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\IOP_1118_01_D.txt", delimiter(",") clear // formatos .txt 
-```
+*Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/5_Importar_datos.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
