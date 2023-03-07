@@ -14,9 +14,15 @@ Cada tipo de variable permite ciertos tipos de procesos u operaciones. Por lo qu
 
 > **Useful tips**
 >
-> Stata tiene un sistema de código de color para cada tipo de variable: 
+> Stata usa un sistema de código de color para cada tipo de variable: 
 > * Negro son variables numéricas
 > * Rojo es para cadenas de texto
 > * Azul es para variables etiquetadas
 >
->Nota: Los cálculos númericos y análisis estadisticos sólo pueden ser calculados con variables numéricas. Stata usa un sistema de color para cada tipo de variable 
+>Nota: Los cálculos númericos y análisis estadisticos sólo pueden ser calculados con variables numéricas.
+
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|   |  |   |
+|   |  |   |

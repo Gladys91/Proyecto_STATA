@@ -1,2 +1,2 @@
-# Prueba_STATA-ECONPUCP
+# Prueba
 Este es un repositorio de prueba
