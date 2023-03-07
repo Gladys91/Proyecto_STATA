@@ -1,7 +1,7 @@
 ************
 *PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ
 * SCRIPT: 5_Importar_datos.do
-* OBJETIVO: Importar datos
+* OBJETIVO: Importar datos en distintos formatos
 ************
 
 *Preámbulo
