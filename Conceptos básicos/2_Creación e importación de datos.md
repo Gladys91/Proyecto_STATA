@@ -146,9 +146,16 @@ Por ejemplo, se tiene datos de longitud y altitud separados por comas. Para cono
 
 El comando usado para cargar archivos ‘.csv’ es muy similar al usado para cargar bases en excel. Hay una diferencia principal. En este caso es necesario indicar qué carácter está siendo usado como separador con la opción delimiter(" "). Dentro del paréntesis debemos indicar el caractér, por ejemplo: delmiter(",") o delmiter(";")
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332688224_875661640329920_3372800927429218119_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=dIM5EN4zJWEAX9ISNHc&_nc_ht=scontent.flim30-1.fna&oh=00_AfDG6aKfRYzjx5zddMdmVbK1xjAu5zgo3hy81JFKhCtdHA&oe=63FB83F2)
+```
+import delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
+insheet delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
+```
 
 Al igual que en el caso de archivos de Excel, es necesario indicar la extensión del archivo al momento de indicar la dirección y el nombre. Por último, esta sintaxis también permite cargar archivos que tengan la extensión ‘.txt’ o ‘.tex’. Veamos un ejemplo de todo lo presentado:
+
+![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
+
+
 
 ```
 * Usamos el comando 'use' para cargar una base .dta
