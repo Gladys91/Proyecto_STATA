@@ -45,7 +45,7 @@ El navegador de datos permite visualizar los datos como si fuera una hoja de cá
 
 ![image](https://user-images.githubusercontent.com/106888200/223147450-c2bc3497-a5cb-4716-9995-1e04a2f1737a.png)
 
-> **Tips**
+> **TIPS: preferencias de la interfaz de Stata**
 >
 > * Podemos cambiar el color de la interfaz haciendo   *click derecho  → preferencias → general → esquema de color general → seleccionar color de preferencia*
 >* Podemos cambiar la disposición de las ventanas de Stata siguiendo la ruta *Edición → Preferencias → Cargar conjunto de preferencias → seleccionar diseño de preferencia*
@@ -132,4 +132,4 @@ Vayamos a la carpeta mencionada en la ventana de resultados para ver qué encont
 | UCSF GSI  | [Thinking like Stata](https://www.youtube.com/watch?v=jTtIREfhyEY&t=108s&ab_channel=UCSFGSI "Thinking like Stata") | Manejar la sintaxis de los comandos en Stata  |
 
 
-*Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
