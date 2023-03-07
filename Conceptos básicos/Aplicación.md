@@ -21,7 +21,7 @@ Abrimos nuestro dofile desde la ventata de comandos con el comando `doedit` y di
 ```
 *Preambulo 
 
-cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // Se debe cambiar por la dirección donde 
+cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // Se debe cambiar por la dirección dónde 
                                                                      // se encuentra tu base de datos
 
 ```
