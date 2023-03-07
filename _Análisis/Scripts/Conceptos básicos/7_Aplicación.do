@@ -1,11 +1,13 @@
 ************
 *PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ
-* SCRIPT: 5_Aplicación_merge_append.do
+* SCRIPT: 7_Aplicación.do
 * OBJETIVO: Aprender a fusionar varios modulos de la ENAHO
 ************
 
-*Preambulo
-cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data"
+
+*Preambulo 
+
+cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // Se debe cambiar por la dirección donde se encuentra tu base de datos
 
 /* La ENAHO, la encuesta más utilizada en el Perú, tiene distintas unidades de observación de acuerdo al módulo específico. 
 Algunas son a nivel de persona, a nivel de hogar, nivel de vivienda, por lo que hay tener doble cuidado al momento de manipular los datos de encuestas de hogar.*/
@@ -20,6 +22,7 @@ use "enaho01-2020-100.dta", clear
 
 merge 1:1 conglome vivienda hogar using "sumaria-2020.dta"
 br
+describe
 
 
 ************
