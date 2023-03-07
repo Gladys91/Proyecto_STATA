@@ -1,4 +1,4 @@
-# APLICACIÓM
+# APLICACIÓN
 
 Para integrar todos los puntos de la sesión, usaremos los datos del módulo
 de empleo de la Encuesta Nacional de Hogares.
@@ -14,7 +14,7 @@ los indicadores sobre las condiciones de vida. En _tipo de encuesta_ puedes enco
 
 Trabajaremos con el modulo 1 (caracteristicas de la vivienda y del hogar) y el modulo 34 (sumaria - variables calculadas) de la _ENAHO metodología actualizada_ y _condiciones de vida y pobreza - ENAHO_ del año 2020.
 
-Podemos descargar los módulos directamente desde la [_ base de microdatos del INEI_](https://proyectos.inei.gob.pe/microdatos/ "_ base de microdatos del INEI_") y descomprimirlos o descargalos ya descomprimidos y limpios desde el siguente [enlace](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "enlace").
+Podemos descargar los módulos directamente desde la [_base de microdatos del INEI_](https://proyectos.inei.gob.pe/microdatos/ "_ base de microdatos del INEI_") y descomprimirlos o descargalos ya descomprimidos y limpios desde el siguente [enlace](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "enlace").
 
 Abrimos nuestro dofile desde la ventata de comandos con el comando `doedit` y digitamos lo siguiente:
 
