@@ -146,22 +146,28 @@ Por ejemplo, se tiene datos de longitud y altitud separados por comas. Para cono
 
 El comando usado para cargar archivos ‘.csv’ es muy similar al usado para cargar bases en excel. Hay una diferencia principal. En este caso es necesario indicar qué carácter está siendo usado como separador con la opción delimiter(" "). Dentro del paréntesis debemos indicar el caractér, por ejemplo: delmiter(",") o delmiter(";")
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332688224_875661640329920_3372800927429218119_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=dIM5EN4zJWEAX9ISNHc&_nc_ht=scontent.flim30-1.fna&oh=00_AfDG6aKfRYzjx5zddMdmVbK1xjAu5zgo3hy81JFKhCtdHA&oe=63FB83F2)
+```
+import delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
+insheet delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
+```
 
 Al igual que en el caso de archivos de Excel, es necesario indicar la extensión del archivo al momento de indicar la dirección y el nombre. Por último, esta sintaxis también permite cargar archivos que tengan la extensión ‘.txt’ o ‘.tex’. Veamos un ejemplo de todo lo presentado:
 
-```
-* Usamos el comando 'use' para cargar una base .dta
+![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
 
-use "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\OSIPTEL_personas", clear	// Cargamos una base almacenada en la computadora
 
-use "https://www.stata-press.com/data/r16/census5", clear // Cargamos una base almacenada en internet
+> **Tips**
+>
+> `clear` vs `clear all`
+> 
+>Si bien la mayoría de la gente usa `clear` para borrar el conjunto de datos y las etiquetas, `clear all` hace borrón y cuenta nueva. Usa este último si estás trabajando matrices, mata, marcos, programas, etc.
 
-* Ahora, cargemos una base en ambos formatos de Excel
-import excel using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\ERM2014_Candidatos_Provincial.xlsx", clear firstrow // formato excel 
-	
-* Otros formatos
-import delimited using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\IOP_1118_01_D.csv", delimiter(",") clear // formatos .csv
 
-import delimited using "D:\MARIA CLAUDIA\Descargas\Material_Stata\1\data\IOP_1118_01_D.txt", delimiter(",") clear // formatos .txt 
-```
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|               |        |         |
+|               |        |         |
+
+
+*Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/blob/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos/5_Importar_datos.do "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")* 
