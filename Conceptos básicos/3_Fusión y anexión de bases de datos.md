@@ -27,7 +27,7 @@ Esta unidad de observación identificada (puede ser una variable o un conjunto d
 
 Consideremos la siguiente base de datos macroeconómicos para una muestra de países africanos. La unidad de observación es un país en un año específico, por ejemplo, Angola en 1970. Para identificar esta observación nos enfocamos en dos variables: date y ifscode. Estamos considerando ifscode en vez del nombre del país porque en muchas operaciones se necesita un identificador que sea numérico.
 
-![image](https://user-images.githubusercontent.com/106888200/223331301-bdd1d8cd-7d1f-4494-af7a-a947b6906b6c.png)
+![image](https://user-images.githubusercontent.com/106888200/223336226-da03f768-31bb-4257-af41-be2f9a975452.png)
 
 
 #### 3.1.2 1:1, m:1, 1:m
