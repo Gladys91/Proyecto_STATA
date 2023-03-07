@@ -1,7 +1,7 @@
 ************
 *PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ
-* SCRIPT: 6_Importar_datos.do
-* OBJETIVO: Importar datos en distintos formatos
+* SCRIPT: 6_merge_append.do
+* OBJETIVO: fusión y anexión de bases
 ************
 
 *Preámbulo
