@@ -85,10 +85,10 @@ Esta opción sirve para indicar con qué sub grupo de datos quedarse. Por ejempl
 
 > **TIPS: identificador de la ENAHO**
 >
-> Cuando queramos fusionar distintos modulos de una encuesta es importante identificar a la unidad de observación. Por ejemplo la ENAHO, la encuesta más utilizada en Perú, tiene distintas unidades de observación de acuerdo al módulo, esto ocasiona que no todas las observaciones se fusionen. Nos es muy útil saber:
->* La unidad de observación para los módulos individuales está compuesto por: *conglome, vivienda, hogar, codperso.*
->* La unidad de observación para los módulos de hogar está compuesto por: *conglome, vivienda, hogar.*
-
+>Cuando queramos fusionar distintos modulos de una encuesta es importante identificar a la unidad de observación. Por ejemplo la ENAHO, la encuesta más utilizada en >Perú, tiene distintas unidades de observación de acuerdo al módulo, esto ocasiona que no todas las observaciones se fusionen. Nos es muy útil saber:
+>
+>La unidad de observación para los módulos individuales está compuesto por: _conglome, vivienda, hogar, codperso._
+>La unidad de observación para los módulos de hogar está _compuesto por: conglome, vivienda, hogar_
 
 
 ### 3.1 ANEXIÓN DE BASES
