@@ -40,6 +40,20 @@ La forma de uso de ambas macros es bastante diversa. En los siguientes casos de 
 ![image](https://user-images.githubusercontent.com/106888200/223595263-d58294f4-0a24-41d8-a98b-288a5ffcbc94.png)
 
 
+> **TIPS: dar formato a un `local`**
+>
+> Una vez que se define un local, se puede dar formato cambiando su visualización.
+> 
+> ```
+> sysuse auto, clear
+>summ price
+>  local x = `r(mean)' * 10
+>  local x : di %10.2fc `x'
+>display "`x'"
+>```
+> Esto es muy util para el formateo automático de etiquetas en gráficos y tablas sin modificar el formato de la variable original
+>
+
 ### 3.1 FORVALUES
 
 Para hacer un loop se necesita indicar algún indicador que permita identificar en dónde se repetirá la operación. Ese indicador puede ser i, j o cualquier letra que facilite la identificación. Adicionalmente, es necesario indicar el número de veces que se realizará la rutina a través de un rango.
