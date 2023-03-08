@@ -85,3 +85,14 @@ Luego de cargar la base de mapas la juntamos con la base previamente construida 
 
 Los departamentos con mayor crecimiento en este gasto público serían Amazonas, Madre de Dios, Puno, Apurímac, Ayacucho y Huancavelica.
 Las posibilidades para hacer mapas en Stata son bastante extensas por lo que se recomienda ver algunos recursos virtuales como guías o documentación en la ayuda del programa escribiendo help spmap o help shp2dta.
+
+
+
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|   |  |   |
+|   |  |   |
+
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
