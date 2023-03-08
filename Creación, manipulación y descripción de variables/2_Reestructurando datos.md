@@ -59,6 +59,19 @@ Veamos la base final:
 ![image](https://user-images.githubusercontent.com/106888200/223489389-f0da2354-4a68-4f99-93fa-3e3e0ee52a38.png)
 
 
+
+> **TIPS: código de seccionamiento**
+> 
+> Puedes colapsar bloques de código en tus dofiles usando corchetes, esto te permite ocultar grandes fragmentos de código.
+> 
+>```
+>{
+>code block
+>}
+>```
+>
+
+
 ### 2.2 TOSTRING Y DESTRING
 
 Estos comandos son similares, pero tienen más restricciones. Por ejemplo, solo se puede usar `destring` sobre una variable que contienen caracteres numéricos en formato de cadena. Mientras que `tostring` transforma a formato de cadena los caracteres numéricos de las variables numéricas. No las etiquetas, como en el caso anterior.
