@@ -4,11 +4,15 @@
 * OBJETIVO: Análisis descriptivos
 ************
 
+*Preámbulo
 clear all
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" //cambiar por tu directorio
+
+**************
 
 * Cargamos el módulo 500 de la ENAHO
 
-use "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_enaho01a-2018-500", clear
+use "enaho01a-2018-500.dta", clear
 
 
 * Información descriptiva de la base

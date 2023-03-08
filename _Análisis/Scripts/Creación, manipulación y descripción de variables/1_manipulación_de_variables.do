@@ -7,13 +7,13 @@
 * Preambulo 
 
 clear all
-
-global Canadá "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_Canadá"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" // cambiar dirección donde tengas tu base de datos
+global Canadá "_Canadá.dta"
 
 
 **************************************************
 
-* Cargamos la base de datos
+* Cargamos la base de datos haciendo uso del global
 
 use "$Canadá", clear
 

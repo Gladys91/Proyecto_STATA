@@ -8,9 +8,11 @@
 
 clear all
 
-global Canadá "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_Canadá"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" // cambiar el directorio 
 
-global MEI "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_MEI0"
+global Canadá "_Canadá.dta"
+
+global MEI "_MEI0.dta"
 
 **************************************************
 
@@ -47,5 +49,4 @@ reshape long mei, i(year) j(month)
 
 reshape wide 
 
-gen dif_mei_1_12 = mei12-mei1
 

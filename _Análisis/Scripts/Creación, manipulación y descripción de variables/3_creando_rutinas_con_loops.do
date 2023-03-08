@@ -7,10 +7,24 @@
 * Preambulo 
 
 clear all
+cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // cambiar el directorio
 
-global MEI "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_MEI0"
+global MEI "_MEI0.dta"
 
 **************************************************
+
+use "OSIPTEL_personas.dta", clear
+
+local var pobreza nse ocupacion
+
+summ `var'
+
+global scatter_opciones `" xtitle("Ingreso Total", size(medlarge))  mcolor(red) msize(*0.5) "'
+
+foreach x of local var{
+	scatter `x' ingreso_total, $scatter_opciones name(`x', replace )
+}
+graph combine  pobreza nse ocupacion
 
 
 * Cargamos la base de datos

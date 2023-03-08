@@ -8,9 +8,9 @@
 
 clear all
 
-cd "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data"
 
-global HD_database "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/HD_database"
+global HD_database "HD_database.dta"
 
 
 **************************************************
