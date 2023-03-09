@@ -59,9 +59,10 @@ Esta última es la parte usualmente más analizada puesto que contiene a los coe
 
 3. Los errores estándar asociados a cada coeficiente
 4. t indica el estadístico t y se obtiene de la siguiente manera:
-![image](https://user-images.githubusercontent.com/106888200/223621841-90d47dba-6968-4a25-843e-652121cff6e1.png)
-En donde  es el estimador de los coeficientes, s.e.(![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/329157681_893942705031116_5251487490175614942_n.jpg?stp=cp0_dst-jpg&_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=bQ7QkfJVxLUAX_e0PIT&_nc_ht=scontent.flim30-1.fna&oh=00_AfD4XDRkoA9-zRHSLPThhrOXPTfixyBzs0jWPd_Tu-_ZxA&oe=63FE41E6)) es el error estándar delestimador y ![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332391058_1873830286330949_1099233548427372101_n.jpg?stp=cp0_dst-jpg&_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=dfBlFqSUzREAX-an56p&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfADNAOlG3Uw3lu9zgx2oq5iOnmMpY03bpC7RmKE7t1G8Q&oe=63FE4C0E) es el valor que toma el coeficiente en la hipótesis nula, en el contexto de una regresión, ![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332391058_1873830286330949_1099233548427372101_n.jpg?stp=cp0_dst-jpg&_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=dfBlFqSUzREAX-an56p&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfADNAOlG3Uw3lu9zgx2oq5iOnmMpY03bpC7RmKE7t1G8Q&oe=63FE4C0E) = 0.
 
+![image](https://user-images.githubusercontent.com/106888200/223621841-90d47dba-6968-4a25-843e-652121cff6e1.png)
+
+En donde ˆβ, s.e.(ˆβ) es el error estándar del estimador y β~H0~ es el valor que toma el coeficiente en la hipótesis nula, en el contexto de una regresión, βH0=0.
 
 5. P>|t| indica el p-value asociado al test de significancia realizado sobre la variable individual.
 Las dos últimas columnas indican los intervalos de confianza de cada estimador.
@@ -90,7 +91,7 @@ Cada punto es la estimación promedio de la expectativa de vida para cada valor 
 
 Las opciones de post-estimation hacen referencia a las opciones que se hacen disponibles para recuperar información presentada o no en los resultados o para manipularla. Un ejemplo de esto es el uso del comando margins previamente. Algunos de ellos hacen referencia a tests específicos del tipo de regresión que se lleva a cabo. El siguiente slide presenta algunas de las opciones de post-estimation para el comando regress. Algunas de ellas serán vistas posteriormente, por ejemplo, para realizar test. Ojo: Estos comandos se hacen disponibles luego de correr una regresión.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332691867_488586510150202_3946169316235929893_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_ohc=KhFG7r7r2sQAX8ET985&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfCHBch2V7nPDS8uNER8Ljlk-y9FAbJxl4cqyu8qruOGRw&oe=6400A802)
+![image](https://user-images.githubusercontent.com/106888200/223935442-13e9ade3-8280-44d9-a171-ef705889aa8b.png)
 
 Veamos un ejemplo bastante usado de postestimation, el comando predict. Este sirve para obtener el estimador de la dependiente, de los residuos, etc. Para ver todas las opciones use la opción de ayuda.
 
@@ -103,7 +104,7 @@ regress life c.school##i.region				   // Opción 2
 
 En este caso generamos una nueva variable que contenga los residuos de la regresión y otra con el estimado de la variable dependiente. Comparemos el valor observado y el valor estimado de la expectativa de vida.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332204808_880018626598310_7619566334402970211_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_ohc=KEtnwNbDfnYAX-TBPSs&_nc_oc=AQnw2daObSmupe0LRcQudtIZ7jxf9zGMAi2xj06dkdwfJ2rH_V-KOvtdL0hljFYSxetMjDo64b6_cEife1Fd7Gnv&_nc_ht=scontent.flim30-1.fna&oh=00_AfCchaUnK6PTLcR3E4WJ4UqoX-HNaNzEljv7EwzBMhz5Hg&oe=64005C67)
+![image](https://user-images.githubusercontent.com/106888200/223935559-ad466a6f-d30d-42fd-9445-1c1c1b6cc069.png)
 
 Explore el resto de las opciones de post-estimation disponibles no solo para el comando regress sino para el que necesite usar.
 
@@ -111,11 +112,11 @@ Explore el resto de las opciones de post-estimation disponibles no solo para el 
 
 stored results hace referencia a los resultados guardados producto de la regresión. Usualmente se presentan al final del texto en la ayuda del programa. Estos resultados almacenados pueden ser de tipo escalar o scalar, matricial o matrix, una macro (es decir alguna parte de la programación en sí) o una función o function. Estos resultados almacenados nos son útiles cuando tenemos que hacer un cálculo manual que implique algún dato estadístico de la regresión. En el siguiente slide vemos las opciones de resultados almacenados para el comando regress.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332515758_754286939230691_3052128547632818102_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=2Xd3NGbEAxEAX-KpzHk&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfCpZSAATOXuGYEZ9luf_T28_WKICM7wAwMT4FMJY4-0Yw&oe=63FEF03E)
+![image](https://user-images.githubusercontent.com/106888200/223935862-90b2fefd-0e13-41b0-9abf-1077c6745d43.png)
 
 Luego de correr una regresión podemos usar cada cado como si fuera una variable dentro de alguna expresión o también crear una nueva variable a partir de ellas. Para esto, si queremos manipular bien un scalar o una matriz debemos insertarlos de manera coherente a alguna expresión (como si fuera un local) o crear una variable adicional considerando que son escalares y matrices. Veamos algunos ejemplos:
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332690054_544087964198015_9180253249420943101_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=730e14&_nc_ohc=s-yQExsCkQQAX8EX7FD&_nc_ht=scontent.flim30-1.fna&oh=00_AfAbIyEPw7n1etz4r3si6taKSEfY9rOdJTcS13ueCPxzJg&oe=64008516)
+![image](https://user-images.githubusercontent.com/106888200/223935924-43f23d5a-0ecc-47bc-a282-ca96df8f8a52.png)
 
 En este caso creamos un escalar (es decir solo un valor, frente a la variable que es una columna de datos) y una matriz (es decir un conjunto de datos de cierto tamaño) usando scalar y matrix seguido por los respectivos nuevos nombres e igualando a las variables indicadas en las opciones de resultados guardados. Para imprimir sus valores usamos el comando scalar list o matrix list.
 
@@ -124,13 +125,14 @@ En este caso creamos un escalar (es decir solo un valor, frente a la variable qu
 
 En la regresión previa estimamos un modelo con dos variables continuas. Ahora consideremos una variable categórica. Para ello debemos recordar que los valores de las categóricas que se introduzcan tienen que ser 1 cuando se cumple cierta condición y 0 en caso contrario. Si hay más de dos categorías podemos crear el mismo número de variables dicotómicas a partir de los valores o podemos usar el prefijo "i." dentro de la regresión para que automáticamente se considere que categoría como una dummy separada.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332714108_722996025931888_5381089570174808165_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=QLoVBZ6ukFcAX9zboD4&_nc_ht=scontent.flim30-1.fna&oh=00_AfBlhrccCE6WA1RCqoJIbsd2ZnmNYIqFN7QwbfyD0Fgbnw&oe=6400318C)
+![image](https://user-images.githubusercontent.com/106888200/223936056-c70de9ce-582c-4f61-821d-fd1bc698a922.png)
+
 
 En este caso hay cinco regiones, todas indicadas dentro de una misma variables. Debido a esto usamos i.region en vez de solo region en la regressión. De esta se considera una categoría base y se estiman las dummies restanto con respecto a la ignorada. En un sentido similar podemos agregar interacciones entre variables en la regresión. Estas interacciones ocurren al multiplicar variables en la regresión. Poe ejemplo:
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332741068_1260308367919918_5000510566624093480_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=730e14&_nc_ohc=WLr2L7A36IoAX_FvFsZ&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfDPQzXQ3xD30nMxbvQxbiaywJCO3f2JsH8f8zqPKMm0HA&oe=63FD26AC)
+![image](https://user-images.githubusercontent.com/106888200/223936130-b55c2521-007e-4f48-9ab1-bffb67759de3.png)
 
-En este caso estimamos un ![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332698224_1363465971069362_1495320131439632875_n.jpg?stp=cp0_dst-jpg&_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=10FZGDmm5E8AX8U7nz_&_nc_ht=scontent.flim30-1.fna&oh=00_AfBWNF8LzB5AH0KPAGv-XPN1Zr_KhzgpfQVdsnk7vcasGA&oe=63FEA2A6) para cada región, es decir un ![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332690022_956104199130662_833117335761079800_n.jpg?stp=cp0_dst-jpg&_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=mXn3g70fnEcAX9W6ddl&_nc_ht=scontent.flim30-1.fna&oh=00_AfD7jrilsrsrE6ok2jT8KXhXFg-AqjLh62vz6o6u006_ZA&oe=63FD59DE),r∀r. Adicionalmente, estimamos ![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332363571_1137980650211872_7493473181639267880_n.jpg?stp=cp0_dst-jpg&_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=uFNLbQ_5kw8AX-lq8f9&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfB4Qa4YYCBmo5YnoyJFVtTjLmCJ7RJPCpbAZl_aozr7rw&oe=63FEAEFA),r para la interacción entre escolaridad y cada categoría de región. Para implementar esta regresión renemos dos opciones que generan exactamente lo mismo:
+En este caso estimamos un β2 para cada región, es decir un β2,r∀r. Adicionalmente, estimamos β3,r para la interacción entre escolaridad y cada categoría de región. Para implementar esta regresión renemos dos opciones que generan exactamente lo mismo:
 
 ```
 * Regresión con categóricas
