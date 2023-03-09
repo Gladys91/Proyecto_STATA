@@ -19,7 +19,7 @@ La terminación de un archivo shapefile es ‘.shp’. El resto de archivos los 
 #### 2.1.1 Transformando datos shapefile a datos dta
 
 Recrearemos un ejemplo del curso de Laboratorio de Econometría I - Stata de Diego Quispe Ortogorin. Luego de ordenar los shapefiles que usaremos tenemos que transformalo a un formato que Stata pueda interpretar. 
-Para ello usamos el comando shp2dta (se debe instalar previamente si es que no se tiene disponibles). El comando usa (using) el archivo shapefile y crea dos nuevas bases de datos.
+Para ello usamos el comando shp2dta (se debe instalar previamente si es que no se tiene disponibles). El comando shp2dta (using) el archivo shapefile y crea dos nuevas bases de datos.
 
 ```
 * Se debe instalar previamente 
