@@ -5,7 +5,7 @@ de empleo de la Encuesta Nacional de Hogares.
 
 - Creemos un do-file 
 - Importamos la base de datos
-- Fusionamos disitntos módulos de la encuesta
+- Fusionamos distintos módulos de la encuesta
 - Identificamos los distintos tipos de variables que hay
 
 
@@ -16,7 +16,7 @@ Trabajaremos con el modulo 1 (caracteristicas de la vivienda y del hogar) y el m
 
 Podemos descargar los módulos directamente desde la [_base de microdatos del INEI_](https://proyectos.inei.gob.pe/microdatos/ "_ base de microdatos del INEI_") y descomprimirlos o descargalos ya descomprimidos y limpios desde el siguente [enlace](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "enlace").
 
-Abrimos nuestro dofile desde la ventata de comandos con el comando `doedit` y digitamos lo siguiente:
+Abrimos nuestro dofile desde la ventata de comandos con el comando `doedit` y digitamos la dirección de nuestro directorio:
 
 ```
 *Preambulo 
