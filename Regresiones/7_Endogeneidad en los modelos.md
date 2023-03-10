@@ -65,6 +65,8 @@ Como ejemplo tomemos los datos del estudio de Romer (1993) en donde se busca est
 En este caso planteamos como variable instrumental al logaritmo de la extensión territorial del país. Veamos:
 
 ```
+use "http://fmwww.bc.edu/ec-p/data/wooldridge/openness", clear
+
 * Estimamos un modelo por MC2E
 
 * Manualmente
@@ -81,22 +83,35 @@ ivreg2 inf (open = lland) lpcinc
 
 Si lo hacemos paso a paso, primero debemos estimar la primera etapa del modelo, luego predecir el valor de la variable endógena y, por último, usar esta nueva variable como regresor en la ecuación final. En el caso de `ivregress` debemos indicar que estime el modelo en dos etapa indicando 2sls:
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332675962_1180619832590750_5698837841389207216_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=xB-fiOrR1i4AX8xXYgj&_nc_ht=scontent.flim30-1.fna&oh=00_AfDvfCQiQnaRO_mU2GLSjC0VXFLqbHNIk1OIodhLjhF5cA&oe=6401DE37)
+![image](https://user-images.githubusercontent.com/106888200/224235312-d9b52c15-c06b-43c9-a2d8-19330ee6e275.png)
+
 
 Entre paréntesis debemos indicar la variable endógena y el o los instrumentos a usar. Fuera podemos indicar las variables explicativas que no son endógenas. En el caso de `ivreg2` no es necesario indicar expresamente que se estime por dos etapas puesto que es la opción por default. Este último comando tiene una amplia cantidad de opciones disponibles para usar, así como un resultado acompañado de mayor información.
+
 Al comparar los tres resultados obtenemos los mismos coeficientes y estadísticos. En el resultado de `ivreg2` podemos ver la información usual sino también más información sobre algunos tests realizados. Regresaremos a estos test posteriormente.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332161135_604947761452221_7908653181058958762_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=JhI1GzXCOO0AX93GFdl&_nc_ht=scontent.flim30-1.fna&oh=00_AfAvHnHsw05pW95AUmNxqOydWThSjjv8Q9a27FSuBHL54A&oe=64017DA9)
+```
+* Comparamos los resultados
+eststo clear
+eststo: reg inf open_hat lpcinc
+eststo: ivregress 2sls inf (open = lland) lpcinc
+eststo: ivreg2 inf (open = lland) lpcinc
+esttab, rename(open_hat Apertura open Apertura lpcinc logIngpc _cons Const) mtitle("Manualmente" "ivregress" "ivreg2")
+```
+
+![image](https://user-images.githubusercontent.com/106888200/224235523-e41b71b6-e7a9-4183-be5f-2ed02819aaac.png)
+
 
 En el resultado de `ivreg2` podemos ver la información usual sino también mayor información sobre algunos tests realizados. Regresaremos a estos test posteriormente.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332512148_5932290493498014_4182605900052236939_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=F1mj4rH1x7QAX-SHQSV&_nc_ht=scontent.flim30-1.fna&oh=00_AfCUNMs5Qe0vRSxGCo-N4zq5QwuHuCBMqZUrRRkxnEhTCQ&oe=640202BB)
+![image](https://user-images.githubusercontent.com/106888200/224235809-50f7659e-42e7-4496-9245-84032e767f18.png)
+
 
 #### 7.3.1 Gmm 
 
 El método generalizado de momentos estima el modelo de manera distinta al estimador de dos etapas. En este escenario se busca que los estimadores cumplan con:
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332168954_1265504714378707_3638066314985912383_n.jpg?stp=cp0_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=730e14&_nc_ohc=loAYKTii0fQAX9jwAwd&_nc_ht=scontent.flim30-1.fna&oh=00_AfBNt5I4n_xScTaJ5ZhojAo6tDyqV2iZCpliuhQP3Bw1Ag&oe=64012D05)
+![image](https://user-images.githubusercontent.com/106888200/224236026-1fb94002-2135-4bec-9a6b-99e88abbb456.png)
 
 Siendo g() la función generalizadora de momentos y el vector de coeficientes a estimar. Este no es un método lineal como en el caso anterior. Veamos las diferencias de estimar el modelo considerando dos etapas y considerando el Método generalizado de momentos:
 
@@ -110,7 +125,7 @@ esttab , mtitle("2SLS" "GMM")
 
 ```
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332624921_757725422157251_4450961197310592529_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=DqXYbgZfKZYAX_1tOiT&_nc_ht=scontent.flim30-1.fna&oh=00_AfCoOpHX9qh0oOtw-PTf7Hq97-ASrX0EnVQjtKre35JTEA&oe=640121A8)
+![image](https://user-images.githubusercontent.com/106888200/224236273-5a3c319c-ea59-4dc5-9642-f078b924fb02.png)
 
 En este caso vemos que el coeficiente estimado es igual pero los errores estándar son distintos. Esto se debe a que son dos maneras distintas de obtener los valores de los coeficientes.
 
