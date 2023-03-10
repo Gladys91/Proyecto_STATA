@@ -13,24 +13,40 @@ En donde ψ(L) es una función que considera los rezagos (L) de la serie insumo,
 
 Los filtros moving average tienen la siguiente forma:
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224391950-7a780dd1-19f5-4d4c-b40c-3a08777f7a71.png)
 
 En donde xt es la serie nueva, wi son pesos para cada observación y xt es la serie input. Los valores f y l indican el número de rezagos a considerar a la derecha y a la izquierda. Si no tenemos ponderadores el filtro solo toma un promedio simple de los datos, por ejemplo: 
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224391996-14ba928e-bf67-4337-b91e-c1dd33ec1620.png)
 
 Consideremos que tomamos un moving average de cinco periodo, es decir, dos periodos previos, el periodo actual y dos periodos posteriores:
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224392022-0c698a58-44ee-46a9-a051-ce223ca1aaee.png)
 
 Para implementar el moving average usamos el comando tssmooth ma seguido por la variable. Adicionalmente debemos indicar los valor l y f de la ecuación vista previamente. Para eso usamos la opción window(#l,#c,#f) en donde #l indica el número de rezagos hacia atrás, #c se reemplaza por 1 cuando se quiere considerar el valor actual y 0 en caso contrario, #f indica los adelantos a considerar. Usemos esta función para crear la serie moving average de cada componente del consumo considerando una ventana de 5 periodos.
 
 ```
+use "pbi_trimestre", clear
+tsset trimestre
+
+* Moving average
+
+tssmooth ma PBI_ma = PBI, window(2 1 2)
+tssmooth ma C_ma   = C  , window(2 1 2)
+tssmooth ma I_ma   = I  , window(2 1 2)
+tssmooth ma G_ma   = G  , window(2 1 2)
+tssmooth ma XN_ma  = XN , window(2 1 2)
 ```
 
 Comparemos la serie original con la serie nueva
 
-![]()
+```
+tsline PBI_ma PBI if tin(1995q1,2015q1), xtitle("") ///
+legend(order(1 "Series Filtrada" 2 "Series Original") cols(2)) ///
+tlabel(1995q1(8)2015q1, labsize(*0.7)) lcolor(gs0 gs0) lpattern(solid -)
+```
+
+![image](https://user-images.githubusercontent.com/106888200/224392762-b6c81757-6533-40fa-a0b4-d1365639588c.png)
 
 La serie con línea punteada indica los valores reales en cada trimestre mientras que la serie sólida indica la nueva serie moving average. Como se observa en el gráfico, el filtro ‘suaviza’ los valores de la serie.
 
@@ -49,33 +65,51 @@ A diferencia del moving average, estos filtros generan por lo menos dos series n
 
 El filtro Hodrick-Prescott o filtro HP es un filtro bastante usado en la literatura (también bastante criticado, por ejemplo, en Hamilton). Este filtro sigue la siguiente ecuación:
 
-xt=zt+τt
+![image](https://user-images.githubusercontent.com/106888200/224393171-4c72b681-8cee-436b-9bee-f2a014f9a5e9.png)
 
 En donde a partir de xt, la serie inicial, se crean dos series nuevas: una tendencia, τt, y una residuo o ciclo, zt. Para obtener estos componentes de minimiza la siguiente función con respecto a τt
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224393120-cad76dc6-8d9d-4beb-aba2-5955c967762c.png)
 
 En donde λ indica un parámetro de suavizamiento a seleccionar de acuerdo a la frecuencia de los datos. Usualmente se considera λ = 1600 para datos trimestrales, λ = 129600 para datos mensuales y λ = 6.25 para datos anuales.
 Vamos a descomponer o filtrar la serie trimestral del PBI en dos partes: un ciclo (o componente residual) y una tendencia. 
 
-![]()
+```
+tsfilter hp PBI_ciclo = PBI, trend(PBI_tendencia) smooth(1600)
+```
 
 En este caso debemos indicar el nuevo nombre del componente, en este caso PBI_ciclo, y la serie de la cuál se extraerá, PBI. También debemos indicar el valor que tomará el parámetro λ, en este caso 1600, y si queremos que se cree una nueva variable con el componente tendencial, trend(PBI_tendencia). Esta rutina generará dos nuevas variables:
 PBI_ciclo y PBI_tendencia. Grafiquémoslas
 
-![]()
+```
+tsline PBI_tendencia PBI, xtitle("") ///
+legend(order(1 "Tendencia del PBI" 2 "PBI") cols(2)) ///
+tlabel(1990q1(8)2019q1, grid labsize(*0.7)) lcolor(gs0 gs0) lpattern(solid -)
+```
+
+![image](https://user-images.githubusercontent.com/106888200/224393518-c8d9a651-4daa-4cff-b101-83a84382bc3c.png)
 
 Como vemos, el componente tendencial no tiene los picos y valles presentes en la serie inicial.
 
-![]()
+```
+tsline PBI_ciclo, xtitle("") ytitle("") title("Ciclo del PBI") ///
+tlabel(1990q1(8)2019q1, grid labsize(*0.7)) lcolor(gs0 gs0) lpattern(solid -)
+```
+
+![image](https://user-images.githubusercontent.com/106888200/224393606-bb504bda-a79e-4396-be54-ac517fd65de3.png)
 
 La serie del ciclo o el residuo es igual a la resta de las series previas. Recordemos que 
 
-zt=xt-τt
+![image](https://user-images.githubusercontent.com/106888200/224393745-2b5ef235-7e04-4c22-a436-1f33137ca122.png)
 
 #### 4.2.2 tsfilter bk
 
 En contraste al filtro HP, el filtro Baxter - King (BK) es un filtro de pase de banda (particualrmente, de highpass). La definición estadística exacta del filtro supero los límites del curso. A pesar de esto, podemos establecer algunos criterios para poder usar la serie dado que hay varios componentes que se deben elegir. El comando tiene la siguiente forma 
+
+```
+tsfilter bk PBI_ciclo_bk = PBI , minperiod(6) maxperiod(32) ///
+trend(PBI_tendencia_bk)
+```
 
 ![]()
 
@@ -96,7 +130,10 @@ Otra diferencia se encuentra en que al usar el filtro BK eliminamos observacione
 
 El filtro Christiano-Fitzgerald también es un filtro de pase de banda con un procedimiento distinto a los filtros previos.
 
-![]()
+```
+tsfilter cf PBI_ciclo_cf = PBI , minperiod(6) maxperiod(32) ///
+trend(PBI_tendencia_cf)
+```
 
 Los argumentos son similares a los de Baxter-King, se puede seleccionar los periodos mínimos y máximos así como el número de observaciones que contribuyen al filtro con smaorder(). De nuevo, para mayor comprensión de la parte netamente estadística del filtro se debe revisar algún libro de econometría de series de tiempo. Veamos las series que se construyen.
 
