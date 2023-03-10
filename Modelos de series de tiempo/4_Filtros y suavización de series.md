@@ -1,7 +1,7 @@
 # Modelo de series de tiempo
 
 ## 4  FILTROS Y SUAVIZACIÓN DE SERIES
----------------------------------
+
 
 El concepto de filtro proviene de la literatura de la ingeniería. La idea es tomar como insumo una serie (o una señal) y procesarla considerando los valores rezagados para generar una nueva serie, es decir una serie filtrada. Consideremos la siguiente ecuación:
 
@@ -11,7 +11,7 @@ En donde ψ(L) es una función que considera los rezagos (L) de la serie insumo,
 
 ### 4.1 FILTROS MOVING - AVERAGE, TSSMOOTH
 
-Los filtros moving average tienen la siguiente forma:
+Los filtros _moving average_ tienen la siguiente forma:
 
 ![image](https://user-images.githubusercontent.com/106888200/224391950-7a780dd1-19f5-4d4c-b40c-3a08777f7a71.png)
 
@@ -23,7 +23,7 @@ Consideremos que tomamos un moving average de cinco periodo, es decir, dos perio
 
 ![image](https://user-images.githubusercontent.com/106888200/224392022-0c698a58-44ee-46a9-a051-ce223ca1aaee.png)
 
-Para implementar el moving average usamos el comando tssmooth ma seguido por la variable. Adicionalmente debemos indicar los valor l y f de la ecuación vista previamente. Para eso usamos la opción window(#l,#c,#f) en donde #l indica el número de rezagos hacia atrás, #c se reemplaza por 1 cuando se quiere considerar el valor actual y 0 en caso contrario, #f indica los adelantos a considerar. Usemos esta función para crear la serie moving average de cada componente del consumo considerando una ventana de 5 periodos.
+Para implementar el moving average usamos el comando `tssmooth ma` seguido por la variable. Adicionalmente debemos indicar los valor l y f de la ecuación vista previamente. Para eso usamos la opción window(#l,#c,#f) en donde _#l indica el número de rezagos hacia atrás, #c se reemplaza por 1 cuando se quiere considerar el valor actual y 0 en caso contrario, #f indica los adelantos a considerar_. Usemos esta función para crear la serie moving average de cada componente del consumo considerando una ventana de 5 periodos.
 
 ```
 use "pbi_trimestre", clear
@@ -111,18 +111,16 @@ tsfilter bk PBI_ciclo_bk = PBI , minperiod(6) maxperiod(32) ///
 trend(PBI_tendencia_bk)
 ```
 
-![]()
-
 Al igual que el filtro HP debemos de indicar el nombre de la serie ciclo y de la serie tendencia. Adicionalmente, debemos indicar algunos componentes nuevos. En este caso minperiod() y maxperiod(). Ambos son parámetros que hacen referencia a la extensión de los ciclos considerados. Los valores introducidos son los propuestos para datos trimestrales de acuerdo a Baxter y King. Ahora, este filtro requiere hacer una revisión teórica previa para poder entender exactamente su procedimiento por lo que les recomiendo (si están bastante interesados en el tema) revisar un libro de econometría de series de tiempo. El resto de filtros también van a introducir nuevos conceptos estadísticos que requieren de un estudio previo, Ojo con esto.
 Veamos las nuevas series generadas. 
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224418775-223c98ac-7e6c-4daa-99a1-054f3d499a59.png)
 
 A diferencia del filtrado HP, la tendencia estimada es mucho menos suave. Esto también se refleja en el componente cíclico.
 
 En este caso, el ciclo aparece menos volátil que en el caso HP.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224418855-f3daa034-9240-4af9-9dca-71cd0b2da7d8.png)
 
 Otra diferencia se encuentra en que al usar el filtro BK eliminamos observaciones de los extremos.
 
@@ -137,12 +135,14 @@ trend(PBI_tendencia_cf)
 
 Los argumentos son similares a los de Baxter-King, se puede seleccionar los periodos mínimos y máximos así como el número de observaciones que contribuyen al filtro con smaorder(). De nuevo, para mayor comprensión de la parte netamente estadística del filtro se debe revisar algún libro de econometría de series de tiempo. Veamos las series que se construyen.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224419030-d47caf71-463b-47da-9d7c-5f5351a5d7a2.png)
 
 #### 4.2.2 tsfilter bw
 
 Por último, el filtro Butterworth es una opción adicional que tiene el comando tsfilter. No es tan usado como el resto de las opciones. 
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224419312-78c4559a-10ea-4886-84a7-0f12b97495bb.png)
 
 Si comparamos las series generadas, la tendencia es más suavizada y el ciclo más volátil Hay más opciones de filtro de series, algunas más complejos como el filtro de Kalman u otros más simples en adaptar a stata como el filtro de Hamilton (ssc install hamiltonfilter).
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
