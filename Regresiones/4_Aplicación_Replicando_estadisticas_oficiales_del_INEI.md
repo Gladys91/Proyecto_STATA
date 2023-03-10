@@ -5,7 +5,7 @@
 
 Como aplicación vamos a replicar algunos estadísticos oficiales del INEI usando la ENAHO junto a su diseño muestral. Particularmente nos enfocaremos en el porcentaje de población en situación de pobreza monetaria, según ámbito geográfico para el 2018.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332685836_3272502503012243_7409459949317580217_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=X1tp98ULvqkAX8kWpKO&_nc_ht=scontent.flim30-1.fna&oh=00_AfAaIL9fKVSDOib1_Ju3eAGTfam471dtbAVbW_KqufgtKg&oe=64003389)
+![image](https://user-images.githubusercontent.com/106888200/224205636-f6c3869e-0a9d-4bfd-b257-5e6e650cf0e0.png)
 
 En este caso apuntamos a replicar la columna para el 2018.
 Vamos a usar el módulo de ‘Sumarias’ de la ENAHO 2018. Este módulo hace un resumen de distintas variables recolectadas en otros módulos. Adicionalmente incluye algunas variables ya trabajadas como la condición de pobreza para cada hogar. Antes de hacer los estimados hay que definir el diseño muestral.
@@ -59,7 +59,7 @@ replace dominio_geo = 2 if dominio == 4 | dominio == 5 | dominio == 6
 replace dominio_geo = 3 if dominio == 7
 ```
 
-Usamos el comando mean para obtener el estimador del promedio. Adicionalmente, usamos la opción , over() para las categorías sobre las cuales obtener el promedio estimado.
+Usamos el comando `mean` para obtener el estimador del promedio. Adicionalmente, usamos la opción `, over()` para las categorías sobre las cuales obtener el promedio estimado.
 
 ```
 * Tasa de pobreza para el Perú
@@ -81,6 +81,6 @@ svy: mean poverty, over(dominio_geo rural)
 Con esto se obtienen los mismos resultados que en las estadísticas oficiales del INEI. Tomemos como ejemplo los estimados sobre dominio y urbano/rural.
 La definición para cada valor de _subpoop_ está dado en el mismo resultado. Por ejemplo _subpoop_1 sería Costa Urbana.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332573970_902664497545188_2465580942854736393_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_ohc=mWI06QQv4TwAX_fLUJT&_nc_ht=scontent.flim30-1.fna&oh=00_AfCjH31rr8jApH3VzGyGcwlhtyU9_1Z2xdTRQJRl3MLzyQ&oe=63FF1EB8)
+![image](https://user-images.githubusercontent.com/106888200/224205804-f714eff5-1ea2-469f-8737-b9e54581d992.png)
 
 En estos casos también podemos comparar los intervalos de confianza de cada estimador presentados tanto en las estadísticas oficiales como en los resultados del código.
