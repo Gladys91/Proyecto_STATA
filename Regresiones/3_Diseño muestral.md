@@ -92,7 +92,10 @@ Cada columna indica cada regresión corrida. La tabla contiene los estimadores, 
 
 > **TIPS: factor de expansión Sumaria**
 >
->Cuando usemos Sumaria o módulos a nivel de hogar, para poder obtener las estadísticas oficiales, no podemos usar el factor de expansión de manera directa, se debe generar una nueva variable que multiplique el factor de expansión por mieperho
+>Cuando usemos Sumaria o módulos a nivel de hogar, para poder obtener las estadísticas oficiales, no podemos usar el factor de expansión de manera directa, se debe generar una nueva variable que multiplique el factor de expansión por mieperho.
 >
+>```
+>factor_hogar =  factor07*mieperho
+>```
 
 ****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
