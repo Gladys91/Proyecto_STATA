@@ -5,15 +5,15 @@
 
 Un conjunto importante de operadores que se vuelve disponible cuando se usa `tsset` con los relacionados a los rezagos, los adelantos y las diferencias. Veamos este operador en términos de ecuaciones:
 
-- Rezago: Indica el valor de un periodo previo y se indica con el prefijo l(1).x
+- Rezago: Indica el valor de un periodo previo y se indica con el prefijo `l(1).x`
 
 *gt=ln(y)t - ln(y)t-1*
 
-- Adelanto: Indica el valor de un periodo posterior y se indica con el prefijo f(1).x
+- Adelanto: Indica el valor de un periodo posterior y se indica con el prefijo `f(1).x`
 
 *gt+1=ln(y)t+1-ln(y)t*
 
-- Differencia: El prefijo d(1).x sirve para tomar la resta entre dos periodos distintos
+- Differencia: El prefijo `d(1).x` sirve para tomar la resta entre dos periodos distintos
 
 *gt=ln(y)t-ln(y)t-1*
 
