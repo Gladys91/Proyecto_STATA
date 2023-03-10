@@ -120,6 +120,9 @@ legend(  cols(6) size(*0.5) order(1 "lnPBI" 2 "Rezago 1" 3 "Rezago 2" ///
  title("PBI y rezagos" "Datos trimestrales") ///
  xlabel(`=q(1990q1)'(8) `=q(2018q1)', format(%tq) labsize(*0.7))
 ```
+
+![image](https://user-images.githubusercontent.com/106888200/224383578-16032776-3fbb-4e70-bda6-8f437a6a3419.png)
+
 Esta opción es, definitivamente, más compleja y extenuante. Luego veremos cómo integrar los datos de series de tiempo a gráficos. Por el momento sigamos con esta lógica.
 
 ### 2.2 ADELANTOS
