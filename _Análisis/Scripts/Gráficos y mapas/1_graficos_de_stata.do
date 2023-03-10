@@ -7,12 +7,11 @@
 * Preambulo 
 
 clear all
-
-global ifogames "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_IfoGAME.dta"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" /// cambiar directorio
 
 
 **************************************************
-use "$ifogames"
+use "IfoGAME.dta"
 
 
 * Describimos la base
@@ -21,11 +20,11 @@ describe
 
 * Histogramas
 
-hist mag 	// Histograma simple
+hist mag 	// Histograma por default
 
-hist mag, width(0.5) // Definimos la distancia entre cada bin
+hist mag, width(0.5) // Se define la distancia entre cada bin
 
-hist mag, bin(20) // Definimos el número total de bins a incluir
+hist mag, bin(10) // Se define el número bins que queremos
 
 * Agregamos algunas opciones adicionales
 hist mag, bin(20) percent normal 								  ///
@@ -34,7 +33,7 @@ hist mag, bin(20) percent normal 								  ///
  title("Distribución de Terremotos" "Toda la muestra, 1979-2010") ///
  normopts(lcolor(red)) kdensity kdenopts(lcolor(blue))
 
-* Kernel de densidad 
+* Kernel 
  
 kdensity mag if iso =="PER" | iso == "CHL" , 						  ///
  lcolor(blue) normal normopts(lcolor(red)) 			  				  ///

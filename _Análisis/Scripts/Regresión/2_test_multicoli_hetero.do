@@ -8,11 +8,11 @@
 
 clear all
 
-global HD_database "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/HD_database"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data"
 
 
 **************************************************
-use "$HD_database"
+use "HD_database.dta"
 
 * Testeando por Multicolinealidad
 reg life school gdp urban i.region

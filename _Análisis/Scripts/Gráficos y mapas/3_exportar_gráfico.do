@@ -7,8 +7,9 @@
 * Preambulo 
 
 clear all
-use "$ifogames"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" // cambiar cd
 
 **************************************************
+use IfoGAME
 hist mag 
-graph export using "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Results/grafico_1.png", replace
+graph export "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Results/grafico_1.png", replace

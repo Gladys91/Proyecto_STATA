@@ -7,10 +7,10 @@
 * Preambulo 
 
 clear all
-global ENAHO_2019 "C:/Users/Usuario/Desktop/STATA_ECOPUCP/Análisis/Data/_enaho01a-2019-500"
+cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data"
 
 **************************************************
-use "$ENAHO_2019"
+use "enaho01a-2019-500.dta"
  
 * Declaramos el diseño muestral
 /*
@@ -23,10 +23,7 @@ svyset conglome [pweight = fac500a], strata(estrato)
 
 svydescribe
 
-/* 
-Debemos usar el prefijo svy: antes del comando de interés para considerar
-el diseño muestral
-*/
+*Usamos el prefijo svy: antes del comando de interés para considerar el diseño muestral
 
 svy: tab ocu500
 tab ocu500
@@ -49,3 +46,4 @@ eststo: reg i524a1 p208a i.p207
 eststo: reg i524a1 p208a i.p207 [pweight=fac500a]
 eststo: svy: reg i524a1 p208a i.p207 /*la manera correcta de estimar*/
 esttab
+
