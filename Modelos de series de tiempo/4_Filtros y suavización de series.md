@@ -111,7 +111,7 @@ tsfilter bk PBI_ciclo_bk = PBI , minperiod(6) maxperiod(32) ///
 trend(PBI_tendencia_bk)
 ```
 
-Al igual que el filtro HP debemos de indicar el nombre de la serie ciclo y de la serie tendencia. Adicionalmente, debemos indicar algunos componentes nuevos. En este caso minperiod() y maxperiod(). Ambos son parámetros que hacen referencia a la extensión de los ciclos considerados. Los valores introducidos son los propuestos para datos trimestrales de acuerdo a Baxter y King. Ahora, este filtro requiere hacer una revisión teórica previa para poder entender exactamente su procedimiento por lo que les recomiendo (si están bastante interesados en el tema) revisar un libro de econometría de series de tiempo. El resto de filtros también van a introducir nuevos conceptos estadísticos que requieren de un estudio previo, Ojo con esto.
+Al igual que el filtro HP debemos de indicar el nombre de la serie ciclo y de la serie tendencia. Adicionalmente, debemos indicar algunos componentes nuevos. En este caso `minperiod()` y `maxperiod()`. Ambos son parámetros que hacen referencia a la extensión de los ciclos considerados. Los valores introducidos son los propuestos para datos trimestrales de acuerdo a Baxter y King. Ahora, este filtro requiere hacer una revisión teórica previa para poder entender exactamente su procedimiento por lo que les recomiendo (si están bastante interesados en el tema) revisar un libro de econometría de series de tiempo. El resto de filtros también van a introducir nuevos conceptos estadísticos que requieren de un estudio previo, Ojo con esto.
 Veamos las nuevas series generadas. 
 
 ![image](https://user-images.githubusercontent.com/106888200/224418775-223c98ac-7e6c-4daa-99a1-054f3d499a59.png)
@@ -133,7 +133,7 @@ tsfilter cf PBI_ciclo_cf = PBI , minperiod(6) maxperiod(32) ///
 trend(PBI_tendencia_cf)
 ```
 
-Los argumentos son similares a los de Baxter-King, se puede seleccionar los periodos mínimos y máximos así como el número de observaciones que contribuyen al filtro con smaorder(). De nuevo, para mayor comprensión de la parte netamente estadística del filtro se debe revisar algún libro de econometría de series de tiempo. Veamos las series que se construyen.
+Los argumentos son similares a los de Baxter-King, se puede seleccionar los periodos mínimos y máximos así como el número de observaciones que contribuyen al filtro con `smaorder()`. De nuevo, para mayor comprensión de la parte netamente estadística del filtro se debe revisar algún libro de econometría de series de tiempo. Veamos las series que se construyen.
 
 ![image](https://user-images.githubusercontent.com/106888200/224419030-d47caf71-463b-47da-9d7c-5f5351a5d7a2.png)
 
@@ -143,6 +143,13 @@ Por último, el filtro Butterworth es una opción adicional que tiene el comando
 
 ![image](https://user-images.githubusercontent.com/106888200/224419312-78c4559a-10ea-4886-84a7-0f12b97495bb.png)
 
-Si comparamos las series generadas, la tendencia es más suavizada y el ciclo más volátil Hay más opciones de filtro de series, algunas más complejos como el filtro de Kalman u otros más simples en adaptar a stata como el filtro de Hamilton (ssc install hamiltonfilter).
+Si comparamos las series generadas, la tendencia es más suavizada y el ciclo más volátil Hay más opciones de filtro de series, algunas más complejos como el filtro de Kalman u otros más simples en adaptar a stata como el filtro de Hamilton (`ssc install hamiltonfilter`).
+
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|   |  |   |
+|   |  |   |
+
 
 ****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
