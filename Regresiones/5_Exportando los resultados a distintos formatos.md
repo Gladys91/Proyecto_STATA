@@ -27,7 +27,8 @@ estout
 
 En la primera parte guardamos los resultados usando `estimates store` y en la segunda parte usamos `eststo`: En este caso i.dpto hace referencia a las categorías de regiones. Veamos el resultado.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332694425_722651876202218_4323404106983198247_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=730e14&_nc_ohc=SS9W6CPOI4gAX_vrKwv&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfCknbKIB6_rXU6Mptag1p5IcmjGCkSFja4UPQFmyDWhJA&oe=6400394B) 
+![image](https://user-images.githubusercontent.com/106888200/224224109-fc8cf09e-db90-4e46-8596-6c1f67128588.png)
+
 
 Cuando se usa `estout`, se junta los coeficientes estimados para ambos modelos y se agrega. Un problema claro con esta tabla es que no es clara. Se acumulan los resultados de las dummies por región y de la categoría base para género. Podemos editar esta tabla para mejorarla.
 
@@ -51,7 +52,7 @@ En este caso estamos agregando una serie de opciones para editar el resultado fi
 
 Veamos a detalle el código para `cells()`. En este caso, además de indicar el resultado a agregar (como el beta o el error estándar), también podemos indicar algunos detalles adicionales como que se agreguen estrellas por la significancia, se cambie la etiqueta (se usa `label()` con el nombre final) y que se de formato (se usa `fmt()` indicando el formato, en este caso 2 indica dos decimales).
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332483388_3344059619242755_3178163821742137626_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=y-ItXwLPhsAAX_a8sFG&_nc_ht=scontent.flim30-1.fna&oh=00_AfAKmMMhoIcN8CKZo-4Pi3Yi0kT74epyanttOp2Tq4AIFQ&oe=6400BA1D)
+![image](https://user-images.githubusercontent.com/106888200/224224212-a84cacb3-d943-4cb7-8098-9e57d66e1739.png)
 
 Ojo: en el caso de `cells()` indicamos entre comillas b, para los coeficientes, y p, para el p-value. Esto indica que se posicionan verticalmente. Mientras que, para error estándar, está fuera de la comilla por lo que se ubica debajo de los coeficientes.
 
@@ -59,21 +60,21 @@ Ojo: en el caso de `cells()` indicamos entre comillas b, para los coeficientes, 
 
 El comando `esttab` es una simplificación de `estout`. Su uso es muy similar a este pero no precisa de detallar muchas opciones.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332701584_745697820482034_5855358093779717234_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=qHeqBrjC0g0AX8Yd_Un&_nc_ht=scontent.flim30-1.fna&oh=00_AfB1-IlYhY6sIHuZ4cFpz4Y8VSxPIzNCGfr4ZoLBy4SksQ&oe=6400D8AE) 
+![image](https://user-images.githubusercontent.com/106888200/224224264-201ed141-1809-4dbe-8e5f-e1728579924a.png)
 
 Este comando permite el mismo nivel de detalle que el previo:
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332707245_2418637884984338_2165249918197313675_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=EplNMF61GD0AX8Jhj_K&_nc_ht=scontent.flim30-1.fna&oh=00_AfA_IX5FucroxMSjEoH2zQQJm8qa22WMn3Ylwas9r5uVXg&oe=6400050D) 
+![image](https://user-images.githubusercontent.com/106888200/224224342-3a738894-832d-4c23-9a6b-aec92ac4f140.png)
 
 ### 5.3 EXPORTANDO EL RESULTADO
 
 Veamos como exportar las tablas que creamos a tres tipos de formato: a formato .csv (puede ser abierto en Excel), a formato .rtf (puede ser abierto en Word u otro editor de texto) y en formato .tex (para cargar la base a una documento de LATEX). Solo hay que agregar algunas cosas adicionales al código previo. Primero, la ubicación y el formato de la tabla. Para ello usamos _esttab using "/Users/direccion/tabla_1.csv"_, o también indicando alguno de los otros formatos.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332213057_1873403136355574_4831801267764569711_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=ah8fMKmFtxIAX885qHO&tn=Xc4MjXoFM9qCnvxH&_nc_ht=scontent.flim30-1.fna&oh=00_AfB2i58UC_nY8hl50swUFTT6FyjTcBme8ACp3F8THwrcIw&oe=6400CC6E) 
+![image](https://user-images.githubusercontent.com/106888200/224224388-ab8e0df6-e3aa-409e-8370-56ee46fc39a8.png)
 
-El documento .csv se tiene que abrir como una base de datos de texto en excel para que se pueda ver bien (Abrimos _Excel -> Pestaña Datos -> Desde el texto-> Elegimos el archivo -> Elegimos el delimitador, en este caso es coma (,)_).
+El documento .csv se tiene que abrir como una base de datos de texto en excel para que se pueda ver bien (Abrimos _Excel → Pestaña Datos → Desde el texto → Elegimos el archivo → Elegimos el delimitador, en este caso es coma (,)_).
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332714945_1541061629723870_4733101633239423602_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=730e14&_nc_ohc=OBsCMXDIW-sAX911aEk&_nc_ht=scontent.flim30-1.fna&oh=00_AfBqxuDiSlzSqccEr1mfzBIrctWugtKmUMB0XhSMT8rMHg&oe=64002DFA) 
+![image](https://user-images.githubusercontent.com/106888200/224224588-f9161d80-59d4-4a00-8969-7ca31c8f50fc.png)
 
 El archivo .rtf puede abrirse desde Word y el archivo .tex desde algún editor de LATEX como TexStudio u Overleaf.
 
@@ -83,17 +84,26 @@ El comando `outreg2` es similar al anterior, pero tiene otro conjunto de comando
 
 ```
 * Usando outreg2
-
+ssc install outreg2 
 reg i524a1 p208a i.p207
-outreg2 using "/Users/2020-1/INFOX/Sesiones/4/code/tabla_2.doc" , ///
+outreg2 using "$D/Results/tabla_2.doc" , ///
 replace keep(p207 p208a)
 
 reg i524a1 p208a i.p207 i.dpto
-outreg2 using "/Users/2020-1/INFOX/Sesiones/4/code/tabla_2.doc" , ///
+outreg2 using "$D/Results/tabla_2.doc" , ///
 append keep(p207 p208a) 
 ```
 En este caso no se ‘almacenan’ los resultados, en cambio se crea una tabla inmediatamente después de hacer una regresión. En este caso creamos un documento .doc e indicamos la opción replace para que cada vez que se corra esa línea se cree un archivo nuevo. En la segunda regresión hacemos algo similar, pero en vez de usar la opción replace usamos la opción `append` para anexar (append) los resultados a la tabla creada líneas arriba. En este caso usamos la opción `keep()` para quedarnos con un subconjunto de variables. Veamos el resultado:
 La tabla, al menos en Word, parece estár más detallada que en el caso del formato .rtf de estout. Al menos si planea solo usar Word para editar sus tablas puede ser preferible practicar más usando el comando `outreg2`.
 
-![](https://scontent.flim30-1.fna.fbcdn.net/v/t39.30808-6/332717945_904146587495090_6584954472461320864_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=3YJDNfksPEEAX9hdsl_&_nc_ht=scontent.flim30-1.fna&oh=00_AfDDrnaYWByB68UdfZM1SAL5RcBLcuqtyTOaoMPmARCn4A&oe=6400D91F) 
+![image](https://user-images.githubusercontent.com/106888200/224224669-d8cd196a-0d5b-4ba2-9eb4-f121bed0c466.png)
 
+
+## Sigue aprendiendo
+| Recurso  | Tema | Descripción |
+| ------------- |:-------------:|:-------------:|
+|   |  |   |
+|   |  |   |
+
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
