@@ -17,7 +17,7 @@ No necesariamente usaremos todas estas opciones al momento de definir el diseño
 
 ### 3.2 DECLARAR DISEÑO MUESTRAL: SVYSET
 
-Para declarar que nuestra base de datos parte de un diseño muestral debemos usar el comando svyset al inicio de nuestro código.
+Para declarar que nuestra base de datos parte de un diseño muestral debemos usar el comando `svyset` al inicio de nuestro código.
 
 Usemos el módulo de empleo de ENAHO para hacer algunos ejemplos con este comando.
 
@@ -33,13 +33,13 @@ svyset conglome [pweight = fac500a], strata(estrato)
 svydescribe
 ```
 
-En este caso definimos los valores para PSU, Weight y Strata. Obviamos el valor para FPC. Ojo: el peso (también llamado factor de expansión o ponderador) puede varias de acuerdo al módulo de ENAHO. En este caso el factor de expansión se llama fac500a. Podemos describir los datos de la muestra usando svydescribe:
+En este caso definimos los valores para PSU, Weight y Strata. Obviamos el valor para FPC. Ojo: el peso (también llamado factor de expansión o ponderador) puede varias de acuerdo al módulo de ENAHO. En este caso el factor de expansión se llama fac500a. Podemos describir los datos de la muestra usando `svydescribe`:
 
 ![image](https://user-images.githubusercontent.com/106888200/224202231-4627f8bf-3a47-41ef-9068-f759ae1617eb.png)
 
 
-Aquí observamos el número de estratos, de unidades y de observaciones por unidad. Así como otra información relacionada al diseño en sí. Luego de declarar que los datos parten de un diseño muestral podemos usar el prefijo svy: antes de los códigos usuales para que el comando considere el diseño muestral. Este prefijo se puede usar con muchos comandos, pero no con todos. Por lo que debe estar atento por si sale algún mensaje de error en la pantalla de resultado.
-Comparemos los resultados de tabular los valores de la variable ocu500, condición laboral. El resultado de la proporción varía si usamos el prefijo svy: y si no lo usamos.
+Aquí observamos el número de estratos, de unidades y de observaciones por unidad. Así como otra información relacionada al diseño en sí. Luego de declarar que los datos parten de un diseño muestral podemos usar el prefijo `svy`: antes de los códigos usuales para que el comando considere el diseño muestral. Este prefijo se puede usar con muchos comandos, pero no con todos. Por lo que debe estar atento por si sale algún mensaje de error en la pantalla de resultado.
+Comparemos los resultados de tabular los valores de la variable ocu500, condición laboral. El resultado de la proporción varía si usamos el prefijo `svy`: y si no lo usamos.
 
 ```
 svy: tab ocu500
@@ -58,7 +58,7 @@ reg i524a1 p208a i.p207
 ![image](https://user-images.githubusercontent.com/106888200/224202375-468dc42c-c9e7-4c81-9af3-c740bde0fc5c.png)
 
 La pantalla de resultados también es distinta al resultado obtenido por una regresión sin diseño muestral. En este caso el análisis de suma de cuadrados no se presenta. En cambio se indica algunos datos relacionados al diseño muestral como el número de estratos y de PSU’s. En la la segunda sección vemos algunos datos nuevos, particularmente el Population size y los grados de libertad del diseño, Design df.
-Si queremos obtener un estimador para sub grupos en la muestra debemos usar la opción ,subpop() dentro del prefijo. Estimemos el mismo modelo previo pero considerando solo observaciones para Lima Metropolitana. Previamente tenemos que crear una variable dicotómica, con valor 0 y 1, para Lima a partir de la variable dominio.
+Si queremos obtener un estimador para sub grupos en la muestra debemos usar la opción `,subpop()` dentro del prefijo. Estimemos el mismo modelo previo pero considerando solo observaciones para Lima Metropolitana. Previamente tenemos que crear una variable dicotómica, con valor 0 y 1, para Lima a partir de la variable dominio.
 
 ```
 * Usando subpop para obtener estimado en Lima Metropolitana
@@ -85,7 +85,7 @@ eststo: svy: reg i524a1 p208a i.p207 /*la manera correcta de estimar*/
 esttab
 ```
 
-Para hacer la comparación vamos a conocer algunos comando nuevos. Una forma de almacenar resultados de manera rápida es usando eststo (esto viene de estimates store). Lo usamos como un prefijo adicional en la línea de regresión para almacenar los datos de estimación como los coeficientes, el estadístico t o el p-value. Como estamos almacenando información de manera consecutiva, cada vez que queremos volver a grabar un conjunto de información debemos usar el comando eststo clear. En el ejemplo, limpiamos los datos guardados y almacenamos los resultados de tres regresiones. Por último, usamos el comando esttab (viene de estimates tabulation) para tabular los resultados almanceados. La primera regresión es la regresión simple. La segunda es la misma pero solo consideramos el peso de cada observación (es decir el factor de expansión) con la opción entre corchetes [pweight = fac500a] (en este caso usamos pweight porque el peso del diseño el un probability wieght, hay más opciones que puede explorar). La tercera regresión considera todo el diseño muestral.
+Para hacer la comparación vamos a conocer algunos comando nuevos. Una forma de almacenar resultados de manera rápida es usando `eststo` (esto viene de estimates store). Lo usamos como un prefijo adicional en la línea de regresión para almacenar los datos de estimación como los coeficientes, el estadístico t o el p-value. Como estamos almacenando información de manera consecutiva, cada vez que queremos volver a grabar un conjunto de información debemos usar el comando eststo clear. En el ejemplo, limpiamos los datos guardados y almacenamos los resultados de tres regresiones. Por último, usamos el comando `esttab` (viene de estimates tabulation) para tabular los resultados almanceados. La primera regresión es la regresión simple. La segunda es la misma pero solo consideramos el peso de cada observación (es decir el factor de expansión) con la opción entre corchetes [pweight = fac500a] (en este caso usamos pweight porque el peso del diseño el un probability wieght, hay más opciones que puede explorar). La tercera regresión considera todo el diseño muestral.
 Cada columna indica cada regresión corrida. La tabla contiene los estimadores, su nivel de significancia expresado en * y en paréntesis los estadísticos t. De esta comparación vemos que la primera regresión genera estimadores distintos a los ‘correctos’ estimados al considerar todo el diseño muestral. Si solo consideramos el factor de expansión como un peso entonces obtenemos los coeficientes correctos pero no obtenemos los errores estándar correctos
 
 ![image](https://user-images.githubusercontent.com/106888200/224202567-c997bced-e150-4d15-8f2a-2b6bcde444a8.png)
