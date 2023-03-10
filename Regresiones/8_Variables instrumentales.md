@@ -30,7 +30,7 @@ eststo: ivreg2 inf (open = lland) lpcinc, first
 
 ![image](https://user-images.githubusercontent.com/106888200/224239724-0f95f9d7-5362-44e6-9ada-3d061a90ce08.png)   
 
-Para ver los resultados de la primera etapa usamos la opción , first. Al final de esta primera parte vemos el test de F test of excluded instruments. El F es mayor a 10 por lo que podemos decir que el instrumento es relevante.
+Para ver los resultados de la primera etapa usamos la opción , `first`. Al final de esta primera parte vemos el test de F test of excluded instruments. El F es mayor a 10 por lo que podemos decir que el instrumento es relevante.
 Si estamos ante un modelo sobreidentificado, es decir que hay más variables instrumentales que variables endógenas, entonces podemos aplicar otro tipo de test. Veamos el test de Sargan. Para ello consideremos como instrumento adicional una dummy = 1 cuando el país es petrolero. Este instrumento sería útil si asumimos que no afecta la inflación del país pero si la apertura comercial. En este caso la hipótesis nula es que ambos instrumentos, en conjunto, son válidos. Si rechazamos la H0 entonces tendríamos cierta evidencia a favor de dudar sobre la validez de los instrumentos usados, de manera conjunta.
 
 ```
