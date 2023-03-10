@@ -41,9 +41,19 @@ En este caso definimos los valores para PSU, Weight y Strata. Obviamos el valor 
 Aquí observamos el número de estratos, de unidades y de observaciones por unidad. Así como otra información relacionada al diseño en sí. Luego de declarar que los datos parten de un diseño muestral podemos usar el prefijo svy: antes de los códigos usuales para que el comando considere el diseño muestral. Este prefijo se puede usar con muchos comandos, pero no con todos. Por lo que debe estar atento por si sale algún mensaje de error en la pantalla de resultado.
 Comparemos los resultados de tabular los valores de la variable ocu500, condición laboral. El resultado de la proporción varía si usamos el prefijo svy: y si no lo usamos.
 
+```
+svy: tab ocu500
+tab ocu500
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224202316-e8255e41-eb2b-47f7-81ff-f2dedaf844e5.png)
 
 Ahora comparemos una regresión simple. En este caso regresionaremos el Ingreso total (imputado, deflactado y anualizado) contra la edad y el género de la persona. 
+
+```
+svy: reg i524a1 p208a i.p207
+reg i524a1 p208a i.p207
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224202375-468dc42c-c9e7-4c81-9af3-c740bde0fc5c.png)
 
@@ -80,4 +90,9 @@ Cada columna indica cada regresión corrida. La tabla contiene los estimadores, 
 
 ![image](https://user-images.githubusercontent.com/106888200/224202567-c997bced-e150-4d15-8f2a-2b6bcde444a8.png)
 
-Ojo: Explore las opciones de esttab para editar esta tabla
+> **TIPS: factor de expansión Sumaria**
+>
+>Cuando usemos Sumaria o módulos a nivel de hogar, para poder obtener las estadísticas oficiales, no podemos usar el factor de expansión de manera directa, se debe generar una nueva variable que multiplique el factor de expansión por mieperho
+>
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
