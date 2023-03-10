@@ -59,6 +59,20 @@ replace dominio_geo = 2 if dominio == 4 | dominio == 5 | dominio == 6
 replace dominio_geo = 3 if dominio == 7
 ```
 
+Una mejor manera de presentar e interpretar los datos es etiquetando a nuestras variables utilizando el comando "label define", veamos el ejemplo:
+
+```
+*etiquetar a nuestras variables
+label define nombre_lima 0"Resto País" 1"Lima"
+label values lima nombre_lima
+
+label define nombre_dominio 1"costa" 2"sierra" 3"selva"
+label values dominio_geo nombre_dominio
+
+label define nombre_rural 0"urbano" 1"rural"
+label values rural nombre_rural
+```
+
 Usamos el comando `mean` para obtener el estimador del promedio. Adicionalmente, usamos la opción `, over()` para las categorías sobre las cuales obtener el promedio estimado.
 
 ```
@@ -81,7 +95,7 @@ svy: mean poverty, over(dominio_geo rural)
 Con esto se obtienen los mismos resultados que en las estadísticas oficiales del INEI. Tomemos como ejemplo los estimados sobre dominio y urbano/rural.
 La definición para cada valor de _subpoop_ está dado en el mismo resultado. Por ejemplo _subpoop_1 sería Costa Urbana.
 
-![image](https://user-images.githubusercontent.com/106888200/224205804-f714eff5-1ea2-469f-8737-b9e54581d992.png)
+![image](https://user-images.githubusercontent.com/106888200/224217043-5a04904e-9c72-471e-8684-81858a236137.png)
 
 En estos casos también podemos comparar los intervalos de confianza de cada estimador presentados tanto en las estadísticas oficiales como en los resultados del código.
 
