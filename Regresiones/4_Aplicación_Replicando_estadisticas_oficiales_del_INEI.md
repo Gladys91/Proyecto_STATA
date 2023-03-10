@@ -84,3 +84,6 @@ La definición para cada valor de _subpoop_ está dado en el mismo resultado. Po
 ![image](https://user-images.githubusercontent.com/106888200/224205804-f714eff5-1ea2-469f-8737-b9e54581d992.png)
 
 En estos casos también podemos comparar los intervalos de confianza de cada estimador presentados tanto en las estadísticas oficiales como en los resultados del código.
+
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
