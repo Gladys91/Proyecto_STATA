@@ -56,3 +56,5 @@ Al correr los promedios estimados usamos la opción coeflegend para ver la leyen
 ![image](https://user-images.githubusercontent.com/106888200/224228813-6edf9e97-db18-4176-9be9-0cb753d57c31.png)
 
 En ambos casos el F es igual a 61.14 y el p-value indica que se rechaza la H0 de que sean iguales.
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
