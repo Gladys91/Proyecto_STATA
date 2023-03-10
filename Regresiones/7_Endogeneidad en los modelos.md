@@ -29,7 +29,7 @@ A partir de esto, podemos verificar que:
 
 ![image](https://user-images.githubusercontent.com/106888200/224231972-71b5e77e-67c8-46e4-8a36-9d21cf3a2cdc.png)
 
-Por lo que no se cumpliría que E(P_d_ ε_d_),  por lo tanto, hay endogeneidad
+Por lo que no se cumpliría que E(P _d_ ε _d_),  por lo tanto, hay endogeneidad
 
 ### 7.2 VARIABLES INSTRUMENTALES
 
