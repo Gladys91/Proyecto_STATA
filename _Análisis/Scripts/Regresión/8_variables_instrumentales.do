@@ -1,7 +1,7 @@
 ************
 *PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ
 * SCRIPT: 8_variables_instrumentales.do
-* OBJETIVO: Analiazar los supuestos de las VI
+* OBJETIVO: Analizar los supuestos de las VI
 ************
  
 clear all
