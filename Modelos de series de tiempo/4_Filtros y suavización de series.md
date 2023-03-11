@@ -5,17 +5,19 @@
 
 El concepto de filtro proviene de la literatura de la ingeniería. La idea es tomar como insumo una serie (o una señal) y procesarla considerando los valores rezagados para generar una nueva serie, es decir una serie filtrada. Consideremos la siguiente ecuación:
 
-yt=ψLxt
+$$y_t=ψ(L)x_t$$
 
-En donde ψ(L) es una función que considera los rezagos (L) de la serie insumo, xt, para generar una serie output, yt. Esta operación puede ser muy compleja y suponer operaciones matriciales avanzadas o ser mucho más simple como sacar los promedio de los valores rezagados. Vamos a ver dos conjuntos de filtros. Primeros los llamados moving average y luego una colección de filtros más complejos.
+En donde $ψ(L)$ es una función que considera los rezagos (L) de la serie insumo, $x_t$, para generar una serie output, $y_t$. Esta operación puede ser muy compleja y suponer operaciones matriciales avanzadas o ser mucho más simple como sacar los promedio de los valores rezagados. Vamos a ver dos conjuntos de filtros. Primeros los llamados moving average y luego una colección de filtros más complejos.
 
 ### 4.1 FILTROS MOVING - AVERAGE, TSSMOOTH
 
 Los filtros _moving average_ tienen la siguiente forma:
 
-![image](https://user-images.githubusercontent.com/106888200/224391950-7a780dd1-19f5-4d4c-b40c-3a08777f7a71.png)
 
-En donde xt es la serie nueva, wi son pesos para cada observación y xt es la serie input. Los valores f y l indican el número de rezagos a considerar a la derecha y a la izquierda. Si no tenemos ponderadores el filtro solo toma un promedio simple de los datos, por ejemplo: 
+$$\hat{x_t}=\frac{\\sum_{i=-l}^f w_{i}x_{t+i}}{\sum_{i=-l}^{f} w_{i}}$$
+
+
+En donde $x_t$ es la serie nueva, wi son pesos para cada observación y $x_t$ es la serie input. Los valores f y l indican el número de rezagos a considerar a la derecha y a la izquierda. Si no tenemos ponderadores el filtro solo toma un promedio simple de los datos, por ejemplo: 
 
 ![image](https://user-images.githubusercontent.com/106888200/224391996-14ba928e-bf67-4337-b91e-c1dd33ec1620.png)
 
@@ -65,11 +67,12 @@ A diferencia del moving average, estos filtros generan por lo menos dos series n
 
 El filtro Hodrick-Prescott o filtro HP es un filtro bastante usado en la literatura (también bastante criticado, por ejemplo, en Hamilton). Este filtro sigue la siguiente ecuación:
 
-![image](https://user-images.githubusercontent.com/106888200/224393171-4c72b681-8cee-436b-9bee-f2a014f9a5e9.png)
+$$x_t=z_t+τ_t$$
 
-En donde a partir de xt, la serie inicial, se crean dos series nuevas: una tendencia, τt, y una residuo o ciclo, zt. Para obtener estos componentes de minimiza la siguiente función con respecto a τt
+En donde a partir de xt, la serie inicial, se crean dos series nuevas: una tendencia, τt, y una residuo o ciclo, zt. Para obtener estos componentes de minimiza la siguiente función con respecto a $τ_t$
 
-![image](https://user-images.githubusercontent.com/106888200/224393120-cad76dc6-8d9d-4beb-aba2-5955c967762c.png)
+$$\sum_{t=1}^T[(x_t-τ_t)^2+λ((τ_{t+1}-τ_t)-(t_t-t_{t-1})]$$
+
 
 En donde λ indica un parámetro de suavizamiento a seleccionar de acuerdo a la frecuencia de los datos. Usualmente se considera λ = 1600 para datos trimestrales, λ = 129600 para datos mensuales y λ = 6.25 para datos anuales.
 Vamos a descomponer o filtrar la serie trimestral del PBI en dos partes: un ciclo (o componente residual) y una tendencia. 
@@ -100,7 +103,7 @@ tlabel(1990q1(8)2019q1, grid labsize(*0.7)) lcolor(gs0 gs0) lpattern(solid -)
 
 La serie del ciclo o el residuo es igual a la resta de las series previas. Recordemos que 
 
-![image](https://user-images.githubusercontent.com/106888200/224393745-2b5ef235-7e04-4c22-a436-1f33137ca122.png)
+$$x_t=z_t-τ_t$$
 
 #### 4.2.2 tsfilter bk
 
