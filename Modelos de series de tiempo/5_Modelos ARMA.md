@@ -4,7 +4,11 @@
 
 Las series de tiempo tienen peculiaridades frente a los datos de corte transversal vistos previamente. Estos son datos de una misma unidad de observación a través del tiempo: { ${y_{t},x_{t}}_{t=1}^{T}$ }
 
-En donde t es el índice del tiempo. De este tipo de procesos se captura algo importante, los valores pasados afectan los valores presentes. Veamos un modelo simple:   $y_{t}=\beta_{0}+\beta_{1}x_{t}+u_{t}$  donde t = 1, 2,..., T. 
+En donde t es el índice del tiempo. De este tipo de procesos se captura algo importante, los valores pasados afectan los valores presentes. Veamos un modelo simple:   
+
+$$y_{t}=\beta_{0}+\beta_{1}x_{t}+u_{t}$$  
+
+$$t = 1, 2,..., T.$$ 
 
 
 A diferencia de un modelo de corte transversal, el supuesto de  $u^T_{t=1}$ que sea i.i.d no se sostiene. Esto debido a que se tiene autocorrelación serial. Antes de pasar a los modelos ARMA veamos un modelo simple sobre el cuál avanzar.
@@ -37,20 +41,20 @@ Esta expresión del proceso AR(1) nos permite ver que hay una ‘memoria infinit
 Para entender de mejor manera este proceso encontramos sus principales momentos.
 
 
-E[ $y_t$ ]= $\frac{Φ_0}{1-Φ_1}$
+$$E[ y_t ]= \frac{Φ_0}{1-Φ_1}$$
 
 
-Var[ $y_t$ ]= $\frac{σ^2_{e}}{1-Φ^2_{1}}$
+$$Var[ y_t ]= \frac{σ^2_{e}}{1-Φ^2_{1}}$$
 
 Ambos momentos difieren de los obtenidos en el ruido blanco. También podemos definir la función de autocovarianza y autocorrelación.
 
 - Función de autocovarianza:
 
-$γ_k=Cov[y_t,y_{t-k}]=Cov[y_t,y_{t+k}]$
+$$γ_k=Cov[y_t,y_{t-k}]=Cov[y_t,y_{t+k}]$$
 
 - Función de autocorrelación:
 
-$ρ_k=\frac{γ_k}{γ_0}$
+$$ρ_k=\frac{γ_k}{γ_0}$$
 
 Ambas funciones serán de utilidad al momento de modelar las series. De la misma manera, es posible obtener estos momentos a partir de la versión generalizada del AR, AR(q). Antes de hacer algunas simulaciones en Stata veamos los modelos MA y ARMA
 
@@ -58,11 +62,11 @@ Ambas funciones serán de utilidad al momento de modelar las series. De la misma
 
 Los modelos de medias móviles o moving average (MA) se definen de manera distinta al modelo MA. En vez de tener el rezago de la variable dependiente ahora podemos definir el rezago solo de la perturbación:
 
-AR(p): $y_t=α_0+e_t+α_1e_{t-1}+α_2e_{t-2}+...+α_qe_{t-p}$  
+$$MA(p): y_t=α_0+e_t+α_1e_{t-1}+α_2e_{t-2}+...+α_qe_{t-p}$$  
 
 En donde { $e_t$ } es un ruido blanco. Como vemos, las estructura de los rezagos tiene una forma distinta. Veamos los momentos de esta serie:
 
-$E[ $y_t$ ]= α_0$
+$$E[ y_t ]= α_0$$
 
 
 Var[ $y_t$ ]= $σ^2_{e}+α^2_{1}σ^2_{e}+α^2_{2}σ^2_{e}+α^2_{3}σ^2_{e}+...+α^2_{q}σ^2_{e}=σ^2_{e}(1+α^2_{1}+α^2_{2}+α^2_{3}+...+α^2_{q})$
@@ -76,14 +80,14 @@ $Cov[y_t,y_{t-k}]=0, si k>q$
 
 Consideremos un proceso MA(1):
 
-$y_t=α_0+e_t+α_1e_{t-1}$  
+$$y_t=α_0+e_t+α_1e_{t-1}$$  
 
 Entonces su media y varianza sería igual a: 
 
-E[ $y_t$ ]= $α_0$
+$$E[ y_t ]= α_0$$
 
 
-Var[ $y_t$ ]= $σ^2_{e}(1+α^2_{1}) $
+$$Var[ y_t ]= σ^2_{e}(1+α^2_{1})$$
 
 
 ### 5.3 ARMA
@@ -116,7 +120,7 @@ Nuestro programa usará algunos parámetros:
 
 Creamos un ruido blanco con valores entre 0 y 1 usando `gen` $e_t$  = rnormal(0,1), luego la serie que almacenará los valores, yt$gdpt. Opcionalmente reemplazamos el valor inicial de la serie por 1 para que todas partan del mismo punto. Hasta este punto tenemos un ruido blanco y una serie vacía. El siguiente loop reemplaza los valores de yt$gdpt a partir de los parámetros y $e_t$  de la siguiente manera:
 
-$y_t=α_0+e_t+α_1e_{t-1}$
+$$y_t=α_0+e_t+α_1e_{t-1}$$
 
 Para definir el rezago de la perturbación restamos una unidad a la ubicación, i, entre corchetes.
 Para que el programa corra debemos definir los parámetros. Como hemos fijado estos parámetros usando $, necesitamos usar `globals` para definirlos por lo que definimos los valores de los así como los nombres que usaremos para las series `$dgp`. En este caso crearemos 5 series (dgp=1(1)5) con $α_0=1$ y $α_1=0.5$. Dado que hemos fijado la ‘semilla’ al inicio del código cada serie saldrá siempre con los mismos valores. Es decir, yt1 siempre tendrá los mismos valores, $y_{t2}$ también y así. Adicionalmente, $y_{t1}$ será distintos a $y_{t2}$.
@@ -147,7 +151,7 @@ El procedimiento es muy similar al del MA. La principal diferencia se encuentra 
 
 En la ecuación vemos que se usa la siguiente fórmula:
 
-$y_t=Φ_0+Φ_1y_{t-1}+e_t$
+$$y_t=Φ_0+Φ_1y_{t-1}+e_t$$
 
 Corramos algunas simulaciones:
 
