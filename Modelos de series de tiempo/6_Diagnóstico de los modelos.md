@@ -1,17 +1,19 @@
 # Modelo de series de tiempo
 
 ## 6.  DIAGNÓSTICO DE LOS MODELOS
----------------------------------
+
 
 ### 6.1 ESTACIONARIEDAD
 
 Para poder hacer un análisis a partir de los modelos que hemos revisado necesitamos que la serie en cuestión sea estacionaria. Esta propiedad puede ser definida como estacionariedad fuerte o como estacionariedad débil. Para términos del análisis usaremos el concepto de estacionariedad débil. Este asume que:
 
-Para un proceso {Yt:t=1,2, …} con argumento segundo finito ![]() es débilmente estacionario si:
+Para un proceso ${y_t: t=1,2, …}$ con argumento segundo finito E $[y^2_{t}]$ < ∞ es débilmente estacionario si:
 
-(I)  ![]() es constante
-(II) ![]() es constante
-(III) para cualquier t, h > 1, Cov[yt; yt+h] depende solo de h pero no de t. 
+$$(I)  E[y_{t}]  es constante$$
+
+$$(II) Var[y_{t}] es constante$$
+
+$$(III) para cualquier t, h>1, Cov[y_t; y_{t+h}] depende solo de h pero no de t.$$ 
 
 Esta propiedad se puede evaluar matemáticamente en distintos procesos que consideremos. De nuevo, si están interesados en el tema, deben revisar a profundidad la parte teórica de este desarrollo.
 
@@ -24,9 +26,10 @@ Esta propiedad se puede evaluar matemáticamente en distintos procesos que consi
 
 Consideremos un proceso como el siguiente:
 
-![]()
+$$y_t=Φ_0+Φ_1y_{t-1}+e_t,  t=1,2,... e_t ~ i.i.d. (0,\sigma^2_{e}$$
 
-A este tipo de procesos se les llama paseos aleatorios. Si lo comparamos con un proceso AR(1) tendríamos un Φ1 = 1 lo que indicaría presencia de raíz unitaria. Bajo esta condición no se cumplen con los supuestos de estacionariedad débil, el promedio no es constante y la varianza tiende a infinito. 
+
+A este tipo de procesos se les llama paseos aleatorios. Si lo comparamos con un proceso AR(1) tendríamos un $Φ_1$ = 1 lo que indicaría presencia de raíz unitaria. Bajo esta condición no se cumplen con los supuestos de estacionariedad débil, el promedio no es constante y la varianza tiende a infinito. 
 Simulemos un modelo AR(1) con raíz unitaria.
 Creamos cinco series j = 1(1)5 a partir de los ruidos blancos. Como vemos el valor de rho va a definir si la serie tiene o no raíz unitaria.
 
@@ -49,11 +52,16 @@ En los datos que observamos en la realidad no es posible saber el valor de  de a
 
 - Test Augmented Dickey-Fuller (ADF): Considera el siguiente modelo:
 
-![]()
+$$Δy_t= α+θy_{t-1}+e_t$$
 
-Y se considera H0: Θ = 0 y H1: Θ > 0
+Y se considera: 
+
+$$H_0: θ=0$$  
+
+$$H_1: θ>0$$
+
 - Test GLS - Augmented Dickey-Fuller (ADF-GLS): Sigue la misma formulación previa pero se detrend bajo GLS (esto significa que se retira un componente tendencial de los datos estimado por mínimos cuadrados generalizados o GLS en inglés).
-- Test Phillips-Perron (PP): Estima un modelo AR simple y luego se estiman dos estadísticos Z y Z que se comparan con una distribución propia de los autores. 
+- Test Phillips-Perron (PP): Estima un modelo AR simple y luego se estiman dos estadísticos $Z_ρ$ y $Z_τ$ que se comparan con una distribución propia de los autores. 
 
 Tomemos la serie mensual de los términos de intercambio para Perú desde la página del BCRP.
 Podemos comenzar a analizar la serie mirándola en un gráfico. 
@@ -72,13 +80,13 @@ Para hacer un test ADF usamos el comando dfuller seguido por la variable a ser a
 
 La hipótesis nula de este test considera que la serie tiene raíz unitaria mientras que la alternativa asume que proviene de un proceso estacionario. En este caso encontramos que el estadísticos estimado es -1.474 mientras que los puntos críticos son más negativos que este. Por lo que podemos concluir que no podemos rechazar la hipótesis nula de raíz unitaria en la serie.
 
-#### 6.1.1.1 Phillip Perron
+#### 6.1.1.2 Phillip Perron
 
 Para implementar el test Phillips Perron usamos el comando pperron. La hipótesis asume también que el proceso de los datos no es estacionario mientras que la alternativa considera que si es estacionaria.
 
 ![]()
 
-Una diferencia entre este test y el test estándar ADF es que el test PP es robusto ante presencia de heterocedasticidad en los datos. Adicionalmente obtenemos dos estadísticos, Zp y Zt . De estos, podemos enfocarnos en Zt. Al igual que en el resto de los test no es posible rechazar la presencia de raíz unitaria en la serie.
+Una diferencia entre este test y el test estándar ADF es que el test PP es robusto ante presencia de heterocedasticidad en los datos. Adicionalmente obtenemos dos estadísticos, $Z_ρ$ y $Z_τ$. De estos, podemos enfocarnos en $Z_τ$. Al igual que en el resto de los test no es posible rechazar la presencia de raíz unitaria en la serie.
 
 #### 6.1.1.3 DF-GLS
 
@@ -176,3 +184,5 @@ El gráfico nos indica que no hay una gran diferencia entre el histograma y la d
 ![]()
 
 Con esto hemos modelado, bajo ciertos criterios, a la serie de tasa de crecimiento de los términos de intercambio. A partir de esto podemos pronosticar los valores de las series.
+
+****Puedes usar el kit de replicación de este módulo obteniendo el [script](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Scripts/Conceptos%20b%C3%A1sicos "script") y [base de datos](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "base de datos")*
