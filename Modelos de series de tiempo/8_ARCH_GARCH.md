@@ -1,32 +1,32 @@
 # Modelo de series de tiempo
 
 ## 8.  MODELOS ARCH Y GARCH
----------------------------------
+
 
 Veamos un poco de teoría antes de pasar a los códigos. Los modelos ARCH surgen de la necesidad de condicionar los procesos autoregresivos a la presencia de heterocedasticidad. Así, surge el modelo autorregresivo con heterocedasticidad condicional. Partamos de un modelo simple:
 
-![]()
+$$y_t=\beta_0+\beta_1z_t+u_t$$
 
 En un modelo como este podemos asumir que la varianza de la perturbación es constante:
 
-![]()
+$$Var(u_t)=\sigma^2$$
 
 Incluso cuando se cumple esta condición podemos encontrar que la varianza de la perturbación condicional a perturbaciones pasadas no es constante. Veamos el siguiente caso:
 
-![]()
+$$Var(u_t|u_{t-1},u_{t-1},...)=E[u_{t-1},u_{t-1},...]=E[u_{t-1}]$$
 
 Este último término se puede modelar como un proceso autorregresivo:
 
-![]()
+$$E[u_{t-1}]=h_t=\alpha_0+\alpha_1u^2_{t-1}$$
 
 En donde:
 
-![]()
+$$u_t=\sqrt{h_tv_t}$$
 
-El número de rezagos de ![]() indica el orden del ARCH. Para que la varianza sea positiva se necesita que ![]() y que ![]() (Recordemos que la varianza es un valor al cuadrado). 
+El número de rezagos de $u^2_{t}$ indica el orden del ARCH. Para que la varianza sea positiva se necesita que $\alpha_0>0$ y que $\alpha_1>0$  (Recordemos que la varianza es un valor al cuadrado). 
 Este modelo nos indica que la varianza puede tener autocorrelación mientras que el término de perturbación no necesariamente. La generalización de este modelo es llamado GARCH. La siguiente ecuación presenta un proceso GARCH(1,1):
 
-![]()
+$$h_t=\alpha_0+\alpha_1u^2_{t}+\gamma_1h_{t-1}$$
 
 Este proceso se asemeja al visto en el modelo ARMA. Ahora ![]() y ![]() tiene ambos rezagos.
 
@@ -71,7 +71,7 @@ Luego de tener cierta evidencia de que la serie tiene efectos ‘ARCH’, estima
 
 ![]()
 
-Así, obtenemos los valores de la regresión inicial y de la regresión de la varianza estimada. Es decir, α0 = 0.000081 mientras que α1 = 0.3598. La constante de la ecuación inicial es, también, es promedio de los datos.
+Así, obtenemos los valores de la regresión inicial y de la regresión de la varianza estimada. Es decir, $\alpha_0$ = 0.000081 mientras que $\alpha_1$ = 0.3598. La constante de la ecuación inicial es, también, es promedio de los datos.
 Estimemos el GARCH(1,1) usando el mismo comando pero con otras opciones. Arch retorno, arch(1) garch(1)
 
 ![]()
