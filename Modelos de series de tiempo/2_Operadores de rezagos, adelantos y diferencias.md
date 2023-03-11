@@ -7,15 +7,15 @@ Un conjunto importante de operadores que se vuelve disponible cuando se usa `tss
 
 - Rezago: Indica el valor de un periodo previo y se indica con el prefijo `l(1).x`
 
-*gt=ln(y)t - ln(y)t-1*
+$$g_t=ln(y)_t - ln(y)_{t-1}$$
 
 - Adelanto: Indica el valor de un periodo posterior y se indica con el prefijo `f(1).x`
 
-*gt+1=ln(y)t+1-ln(y)t*
+$$g_{t+1}=ln(y)_{t+1} - ln(y)_{t}$$
 
 - Differencia: El prefijo `d(1).x` sirve para tomar la resta entre dos periodos distintos
 
-*gt=ln(y)t-ln(y)t-1*
+$$g_t=ln(y)_t - ln(y)_{t-1}$$
 
 Antes de presentar los ejemplos vamos a limpiar las bases de datos. Usaremos el PBI peruano tanto en frecuencia anual como en frecuencia trimestral.
 Carguemos la serie anual del PBI Gasto del Perú desde la página de BCRP. Limpiamos y ordenamos la serie y nos quedamos con los cinco componentes del PBI Gasto: Consumo, Inversión, Gasto Público y Exportaciones Netas. 
@@ -137,7 +137,7 @@ Complementemos los operadores de rezagos y adelantos con el operador de diferenc
 
 El operador de diferencias toma la resta de una misma variable un número de períodos dados. Tomemos la base anual del PBI y construyamos la tasa de crecimiento usando tanto el operador de diferencias como los operadores de rezago. Recordemos que la tasa de crecimiento puede definirse de la siguiente manera:
 
-*gt=ln(y)t - ln(y)t-1*
+$$g_t=ln(y)_t - ln(y)_{t-1}$$
 
 ![image](https://user-images.githubusercontent.com/106888200/224375405-810b37ba-deec-4a8f-8613-7ead22b3ec38.png)
 
@@ -152,7 +152,7 @@ gen g_pbi2 = d.lnpbi
 
 Luego de crear el logaritmo del PBI, podemos crear la tasa de crecimiento tomando de manera manual la diferencia lnpbi - l1.lnpbi o podemos usar el operador de diferencias para obtener lo mismo, d.lnpbi. Ojo: si indicamos un número mayor de diferencias, por ejemplo d2.lnpbi, estamos considerando la 2da diferencia del PBI es decir:
 
-d2.lnpbi =(ln(y)t-ln(y)t-1 - (ln(y)t-1-lN(y)t-2)
+$$d2.lnpbi =(ln(y)_t - ln(y)_{t-1}) - (ln(y)_{t-1} - ln(y)_{t-2})$$
 
 Tomemos la base trimestral y comparemos si podemos obtener la tasa de crecimiento Q-Q usando el comando de diferencias.
 
