@@ -2,15 +2,15 @@
 
 ## 1.  MODELOS ARMA
 
-Las series de tiempo tienen peculiaridades frente a los datos de corte transversal vistos previamente. Estos son datos de una misma unidad de observación a través del tiempo:
+Las series de tiempo tienen peculiaridades frente a los datos de corte transversal vistos previamente. Estos son datos de una misma unidad de observación a través del tiempo: { ${y_{t},x_{t}}_{t=1}^{T}$ }
 
-![image](https://user-images.githubusercontent.com/106888200/224457507-7ecf8ff6-43ac-45ae-8e76-b7bb7b9e2e58.png)
 
-En donde t es el índice del tiempo. De este tipo de procesos se captura algo importante, los valores pasados afectan los valores presentes. Veamos un modelo simple:
+En donde t es el índice del tiempo. De este tipo de procesos se captura algo importante, los valores pasados afectan los valores presentes. Veamos un modelo simple:   $y_{t}=\beta _{0}+\beta _{1}x_{t}+u_{t}$ 
 
-![image](https://user-images.githubusercontent.com/106888200/224457518-76464b1f-e02f-41a1-8e94-fde3df97295a.png)
+![image](https://user-images.githubusercontent.com/106888200/224458839-d2f62069-8149-4ebe-b338-ddfcd84289ab.png)
 
-A diferencia de un modelo de corte transversal, el supuesto de ![image](https://user-images.githubusercontent.com/106888200/224457531-bd500ab6-1797-4fcd-83da-12b8f209e701.png) que sea i.i.d no se sostiene. Esto debido a que se tiene autocorrelación serial. Antes de pasar a los modelos ARMA veamos un modelo simple sobre el cuál avanzar.
+
+A diferencia de un modelo de corte transversal, el supuesto de ![image](https://user-images.githubusercontent.com/106888200/224458869-f620c716-0556-4524-bc40-9e7abb45769c.png) que sea i.i.d no se sostiene. Esto debido a que se tiene autocorrelación serial. Antes de pasar a los modelos ARMA veamos un modelo simple sobre el cuál avanzar.
 La serie temporal más simple se llama ruido blanco, {et}~  i.i.d. en donde:
 
 - E(et)=0, ∀t
