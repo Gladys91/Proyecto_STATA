@@ -16,7 +16,6 @@ $$(II) Var[y_{t}] es constante$$
 $$(III) para cualquier t, h>1, Cov[y_t; y_{t+h}] depende  solo  de  h  pero  no  de  t.$$
 
 
-
 Esta propiedad se puede evaluar matemáticamente en distintos procesos que consideremos. De nuevo, si están interesados en el tema, deben revisar a profundidad la parte teórica de este desarrollo.
 
 ¿Cómo podemos verificar si nuestras series son estacionarias? Hay varioas consideraciones que se pueden hacer:
@@ -40,11 +39,11 @@ Creamos cinco series j = 1(1)5 a partir de los ruidos blancos. Como vemos el val
 
 Veamos las series que obtenemos.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224490864-5d1a958b-4b88-4607-ae1e-20abd1d6bc4d.png)
 
 Comparemos un AR(1) bajo distintos valores de coeficiente.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224490912-b8a40ba0-f961-4665-b241-061bb200513d.png)
 
 Para implementarlo hemos seguido la misma lógica previa, pero considerando un mismo vector de valores de perturbaciones y solo cambios.
 
@@ -68,7 +67,7 @@ $$H_1: θ>0$$
 Tomemos la serie mensual de los términos de intercambio para Perú desde la página del BCRP.
 Podemos comenzar a analizar la serie mirándola en un gráfico. 
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224490953-ae63ca22-1fba-47e6-b43e-a5fe195d0d95.png)
 
 A primera observación podemos encontrar que hay presencia de una tendencia. Los datos siguen un patrón de subida hasta la crisis del 2008, luego rebotan a un punto más alto para posteriormente empezar a disminuir. Usemos los test sobre esta serie:
 Algunos test permiten dos tipos de opciones importantes: trend y/o drift. El primero hace referencia a que se asume una tendencia determinística (esto significa que nosotros sabemos de antemano cómo aumenta esta tendencia) mientras que drift hace referencia a que la serie tiene un intercepto.
@@ -78,7 +77,7 @@ Algunos test permiten dos tipos de opciones importantes: trend y/o drift. El pri
 
 Para hacer un test ADF usamos el comando dfuller seguido por la variable a ser analizada.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491004-90b77a4c-c054-4584-be80-ae4595985d06.png)
 
 La hipótesis nula de este test considera que la serie tiene raíz unitaria mientras que la alternativa asume que proviene de un proceso estacionario. En este caso encontramos que el estadísticos estimado es -1.474 mientras que los puntos críticos son más negativos que este. Por lo que podemos concluir que no podemos rechazar la hipótesis nula de raíz unitaria en la serie.
 
@@ -86,7 +85,7 @@ La hipótesis nula de este test considera que la serie tiene raíz unitaria mien
 
 Para implementar el test Phillips Perron usamos el comando pperron. La hipótesis asume también que el proceso de los datos no es estacionario mientras que la alternativa considera que si es estacionaria.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491027-de960595-4c1e-49db-a606-e2f10ae2e14b.png)
 
 Una diferencia entre este test y el test estándar ADF es que el test PP es robusto ante presencia de heterocedasticidad en los datos. Adicionalmente obtenemos dos estadísticos, $Z_ρ$ y $Z_τ$. De estos, podemos enfocarnos en $Z_τ$. Al igual que en el resto de los test no es posible rechazar la presencia de raíz unitaria en la serie.
 
@@ -94,17 +93,17 @@ Una diferencia entre este test y el test estándar ADF es que el test PP es robu
 
 Este test también es presentado por Elliot-Rothenberg-Stock(1996). Es una modificación al test ADF pero se incluye un detrending de los datos mediante una estimación GLS. La hipótesis nula en este caso indica la presencia de de raíz unitaria con un posible drift mientras que la alternativa considere una serie estacionaria con o sin tendencia.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491077-ea0af4b6-50ef-4e80-9d49-1ed30e7edf70.png)
 
 Para implementar el test usamos el comando dfgls. La serie, por default, considera la presencia de una tendencia. Si no queremos considerar esto usamos la opción notrend. Adicionalmente, debemos seleccionar un número de rezagos máximos a considerar. En este caso, no es posible rechazar la hipótesis nula en ningún caso.
 Luego de verificar que hay cierta evidencia a favor de que la serie tiene raíz unitaria podemos tomar una estrategia simple para transformar nuestra serie en estacionaria, tomar la primera diferencia o la tasa de crecimiento. En este caso, vamos a crear una variable nueva igual a la tasa de crecimiento mes a mes.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491111-85c755eb-d585-4629-8182-96c5d3d502a5.png)
 
 A primera vista, la serie parece no tener tendencia. Tomemos los test sobre esta serie.
 En este caso ya no consideramos la opción trend
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491193-56886a12-adc4-454d-aaaa-e7c73db3fc47.png)
 
 Ambos test concluyen en los mismo, la serie de la tasa de crecimiento de los términos de intercambio no presenta raíz unitaria. Ahora que ya sabemos identificar a una serie estacionaria vamos a ver como seleccionar el número de rezagos a usar al momento de modelar los datos.
 
@@ -119,24 +118,22 @@ Luego de confirmar la estacionariedad vamos a seguir con la metodología de Box 
 
 Para analizar la autocorrelación y autocorrelación parcial (AC y PAC, en inglés) usamos los comandos ac y pac, los cuales generan un gráfico de los estadísticos. También podemos usar el comando corrgram para tener un resultado no gráfico. En esta etapa se buscan ciertos comportamientos. Veamos un cuadro resumen:
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491217-efb0c476-efc2-4563-a675-9b375e0643d9.png)
 
 De esta manera tenemos cierta idea de cómo seleccionar el número de rezagos p para la parte autorregresiva y q para la parte de media móvil. Veamos un ejemplo aplicando los comandos y esta primera parte de la metodología para los datos de términos de intercambio.
 De estos gráficos encontramos que hay una caída consecutiva en la función de autocorrelación, signo ser una función AR. A partir de la autocorrelación parcial tenemos una serie de picos que nos indicarían los rezagos a usar.
 
-![]()
-
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491238-a105c38a-7e9f-42d2-be05-f10546ba2c01.png)
 
 Para interpretar los picos en la PAC debemos ver qué picos están por encima de la zona sombreada. Esto significa que son significativos. Para ver las posiciones exactas así como otro conjunto de información podemos usar el comando corrgram. Veamos:
 Este comando nos permite ampliar los resultados del gráfico. Las primeras columnas hacen referencia a los valores de AC y PAC mientras que las últimas columnas presenta una forma resumida de los gráficos previos.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491261-02ccc9e6-c089-47cd-837f-3e04d2264deb.png)
 
 Entonces, tendríamos un proceso AR con posibles rezagos en 1, 3, 6, 7,12, 13 y 25 (el resto de rezagos se muestra en el resultado completo de Stata). Ahora pasemos a estimar los modelos.
 Para estimar los modelos usaremos el comando arima. Este comando nos permite seleccionar el número de rezagos que usaremos tanto para la parte AR como para la parte MA. Cómo veran se usa ARIMA en vez de ARMA, esto debido a que se deja la posibilidad de definir un parámetro adicional para los procesos autorregresivos integrados de medias móviles. Este elemento intermedio, I, será dejado de lado ya que es parte de temas más avanzados en series de tiempo. 
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491312-435346fe-0354-4ecd-85f6-511e99ae033f.png)
 
 Luego de estimar los modelos, necesitamos recuperar los criterios de información con el comando estat ic en la línea posterior a la estimación.
 En esta parte tenemos que repetir los códigos para distintas combinaciones de rezagos. Para almacenar los criterios de información de manera adecuada podemos crear una matriz previamente. En este caso almacenaremos los resultados de siete modelos. Comenzando con el modelo más simple de solo 1 rezago, aumentando de una a uno hasta tener los rezagos 1, 3, 6, 7, 12, 13 y 25.
@@ -147,16 +144,16 @@ En esta parte tenemos que repetir los códigos para distintas combinaciones de r
 Para crear una matriz tenemos que usar el comando matrix seguido por el nombre que queremos usar, por ejemplo, CritInfor. Para definir que sea una matriz vacía usamos J(2,7,.). El primer valor define el número de filas mientras que el segundo, el número de columnas. Por último, se define que se componga de missing values, ..
 Adicionalmente podemos editar el nombre de las filas y columnas con matrix colnames y matrix rownames. Podemos ver la matriz usando matrix list CritInfor:
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491387-30e3c09f-9b89-4b0a-9ab8-d65f4222ce53.png)
 
 Estimemos el primero modelo, AR(1), usando el comando arima seguido por la(s) variables(s) a usar. En este caso, definimos ar(1) para seleccionar solo el rezago 1. Veamos el resultado.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491363-09f73746-40d5-4d7e-a016-131e9640c11e.png)
 
 Este resultado se parece a los que ya hemos visto previamente. Se presentan los resultados de la log verosimilitud estimada para cada iteración. Luego, algunos datos adicionales relacionados con el número de observaciones, las fechas y el contraste conjunto del modelo.
 En la siguiente parte encontramos los estimadores de la constante y del rezago, _cons y L1.ar, respectivamente. Luego de estimar el modelo generamos los criterios de información ACI y BIC con el comando estat ic:
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491406-f42e3a3b-727d-4612-8fbf-e0e978077284.png)
 
 Si revisamos las opciones de post-estimation de este comando encontraremos que podemos recuperar los resultados para AIC y BIC en la matriz r(S). Veamos cómo manejamos estos datos.
 Luego de correr el AR(1) y generar los criterios de información recuperamos la matriz r(s) creando una nueva matriz.
@@ -174,16 +171,21 @@ Luego de correr todos los bloques de códigos, visualizamos los datos usando mat
 
 La regla para decidir el modelo es seleccionar aquel con menor valor para el criterio de información. Si consideramos el AIC entonces seleccionaremos el Modelo 6, AR(1 3 6 7 12 13).
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491434-8ddda4d8-3c7d-4b19-9d34-b29f24065b90.png)
+
+También podemos estimar los modelos considerando solo rezagos en cada periodo, es
+decir AR(1), AR(3), etc.
+
+![image](https://user-images.githubusercontent.com/106888200/224491544-7063ae2b-6313-4c3c-b1af-d052f5f6a416.png)
 
 A partir de esta última tabla seleccionamos AR(1) frente al resto. Mientras que en la primera tabla seleccionamos AR(1 3 6 7 12 13) frente a AR(1). Entonces, aquella última es la tabla final.
 Luego de estimar el modelo debemos revisar si los errores estimados se distribuyen como una normal mediante un histograma y algún test de normalidad. Hagamos un gráfico del histograma.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491610-d86f8790-c69d-4864-853d-b72b1f0939ba.png)
 
 El gráfico nos indica que no hay una gran diferencia entre el histograma y la distribución normal. Para un análisis numérico podemos usar el estadístico de Shapiro Wilk para testear la normalidad con el comando swilk. En este caso la nula indica que se distribuye como normal. Encontramos que no es posible rechazarla por lo que nuestros errores serían normales.
 
-![]()
+![image](https://user-images.githubusercontent.com/106888200/224491638-20ce4546-baa4-411c-99c5-52bddb540d23.png)
 
 Con esto hemos modelado, bajo ciertos criterios, a la serie de tasa de crecimiento de los términos de intercambio. A partir de esto podemos pronosticar los valores de las series.
 
