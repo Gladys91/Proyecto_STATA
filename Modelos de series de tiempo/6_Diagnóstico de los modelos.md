@@ -13,7 +13,9 @@ $$(I)  E[y_{t}]  es constante$$
 
 $$(II) Var[y_{t}] es constante$$
 
-$$(III) para cualquier t, h>1, Cov[y_t; y_{t+h}] depende solo de h pero no de t.$$ 
+$$(III) para cualquier t, h>1, Cov[y_t; y_{t+h}] depende  solo  de  h  pero  no  de  t.$$
+
+
 
 Esta propiedad se puede evaluar matemáticamente en distintos procesos que consideremos. De nuevo, si están interesados en el tema, deben revisar a profundidad la parte teórica de este desarrollo.
 
