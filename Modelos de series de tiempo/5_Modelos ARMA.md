@@ -7,47 +7,50 @@ Las series de tiempo tienen peculiaridades frente a los datos de corte transvers
 En donde t es el índice del tiempo. De este tipo de procesos se captura algo importante, los valores pasados afectan los valores presentes. Veamos un modelo simple:   $y_{t}=\beta_{0}+\beta_{1}x_{t}+u_{t}$  donde t = 1, 2,..., T. 
 
 
-A diferencia de un modelo de corte transversal, el supuesto de   que sea i.i.d no se sostiene. Esto debido a que se tiene autocorrelación serial. Antes de pasar a los modelos ARMA veamos un modelo simple sobre el cuál avanzar.
-La serie temporal más simple se llama ruido blanco, {$e_{t}$ }~  i.i.d. en donde:
+A diferencia de un modelo de corte transversal, el supuesto de  $u^T_{t=1}$ que sea i.i.d no se sostiene. Esto debido a que se tiene autocorrelación serial. Antes de pasar a los modelos ARMA veamos un modelo simple sobre el cuál avanzar.
+La serie temporal más simple se llama ruido blanco, { $e_t$ }~  i.i.d. en donde:
 
-- E(et)=0, ∀t
-- Var(et)=σɅ2e, ∀t
+- E( $e_t$ )=0, ∀t
+- Var( $e_t$ )= $σ^2_{e}$, ∀t
 
-Una serie de tiempo es lineal si:
+Una serie de tiempo es lineal si: $$y_{t}=u+\sum_{i=0}^{\infty}\varphi_{i}\epsilon _{t-1}$$
 
-![image](https://user-images.githubusercontent.com/106888200/224457611-e6911ebe-ff58-41ce-b1ff-31b2aa7f22a7.png)
-
-En donde Ψ0=1 y et es ruido blanco. et es la nueva información que se adquiere en t, también llamada innovación o shock.   son los pesos de las innovaciones del pasado en el presente.
-A partir de esta última ecuación se hace explícito que el valor de yt depende de los choques previos, así como del choque contemporáneo. Para delimitar mejor este tipo de procesos podemos plantear modelos del tipo ARMA. Veamos un poco de la teoría simple de los modelos antes de comenzar a estimarlos en el programa. 
+En donde $Ψ_0$ =1 y $e_t$  es ruido blanco. $e_t$  es la nueva información que se adquiere en t, también llamada innovación o shock. Ψ son los pesos de las innovaciones del pasado en el presente.
+A partir de esta última ecuación se hace explícito que el valor de $y_t$ depende de los choques previos, así como del choque contemporáneo. Para delimitar mejor este tipo de procesos podemos plantear modelos del tipo ARMA. Veamos un poco de la teoría simple de los modelos antes de comenzar a estimarlos en el programa. 
 
 ### 5.1 AR
 
 Los modelos AR o auto regresivos parten de asumir que las series de tiempo siguen un proceso del siguiente tipo:
 
-![image](https://user-images.githubusercontent.com/106888200/224457645-2ad12933-a10f-4915-a3f5-a08107a3f5c9.png)
+AR(p): $y_t=Φ_0+Φ_1y_{t-1}+Φ_2y_{t-2}+...+Φ_py_{t-p}+e_t , t=p,p+1,...$
 
-En donde se tiene que {et} es una secuencia de errores de ruido blanco. Los modelos que veremos dependen del número de rezagos que consideramos. La ecuación previa indica la generalización del modelo con q rezagos. Veamos el ejemplo más simple con solo un rezago, AR(1).
 
-![image](https://user-images.githubusercontent.com/106888200/224457659-e55e7280-fbd7-4093-8f6f-5cbbc209843f.png)
+En donde se tiene que { $e_t$ } es una secuencia de errores de ruido blanco. Los modelos que veremos dependen del número de rezagos que consideramos. La ecuación previa indica la generalización del modelo con q rezagos. Veamos el ejemplo más simple con solo un rezago, AR(1).
 
-En donde asumimos que |Φ1| < 1. Esta misma serie se puede expresar de la siguiente manera:
+ $y_t=Φ_0+Φ_1y_{t-1}+e_t , t=1,2,...$
 
-![image](https://user-images.githubusercontent.com/106888200/224457671-6d1aa920-592d-410c-b0c3-77bc3203e707.png)
+En donde asumimos que | $Φ_1$ | < 1. Esta misma serie se puede expresar de la siguiente manera:
 
-Esta expresión del proceso AR(1) nos permite ver que hay una ‘memoria infinita’; es decir, un choque, et tiene un efecto en todos los periodos posteriores.
+$$y_t=\frac{Φ_0}{1-Φ_1}+\sum_{j=0}^∞Φ^j_{1}e_{t-j}$$
+
+Esta expresión del proceso AR(1) nos permite ver que hay una ‘memoria infinita’; es decir, un choque, $e_t$  tiene un efecto en todos los periodos posteriores.
 Para entender de mejor manera este proceso encontramos sus principales momentos.
 
-![image](https://user-images.githubusercontent.com/106888200/224457687-7c45d2ac-8cc8-4d7d-a92a-abcd5da36110.png)
+
+E[ $y_t$ ]= $\frac{Φ_0}{1-Φ_1}$
+
+
+Var[ $y_t$ ]= $\frac{σ^2_{e}}{1-Φ^2_{1}}$
 
 Ambos momentos difieren de los obtenidos en el ruido blanco. También podemos definir la función de autocovarianza y autocorrelación.
 
 - Función de autocovarianza:
 
-![image](https://user-images.githubusercontent.com/106888200/224457709-8a62f156-f90f-41d0-bd72-e0a6cd5e2b92.png)
+$γ_k=Cov[y_t,y_{t-k}]=Cov[y_t,y_{t+k}]$
 
 - Función de autocorrelación:
 
-![image](https://user-images.githubusercontent.com/106888200/224457725-1865bd6c-7f36-49cd-944c-08ddae8030dd.png)
+$ρ_k=\frac{γ_k}{γ_0}$
 
 Ambas funciones serán de utilidad al momento de modelar las series. De la misma manera, es posible obtener estos momentos a partir de la versión generalizada del AR, AR(q). Antes de hacer algunas simulaciones en Stata veamos los modelos MA y ARMA
 
@@ -55,11 +58,14 @@ Ambas funciones serán de utilidad al momento de modelar las series. De la misma
 
 Los modelos de medias móviles o moving average (MA) se definen de manera distinta al modelo MA. En vez de tener el rezago de la variable dependiente ahora podemos definir el rezago solo de la perturbación:
 
-![image](https://user-images.githubusercontent.com/106888200/224457748-d077e858-ecdf-41e2-9beb-4302e9bd4bca.png)
+AR(p): $y_t=α_0+e_t+α_1e_{t-1}+α_2e_{t-2}+...+α_qe_{t-p}$  
 
-En donde {et} es un ruido blanco. Como vemos, las estructura de los rezagos tiene una forma distinta. Veamos los momentos de esta serie:
+En donde { $e_t$ } es un ruido blanco. Como vemos, las estructura de los rezagos tiene una forma distinta. Veamos los momentos de esta serie:
 
-![image](https://user-images.githubusercontent.com/106888200/224457985-d96ce5ef-2a2f-42ea-bc25-69fc388afc2c.png)
+$E[ $y_t$ ]= α_0$
+
+
+Var[ $y_t$ ]= $σ^2_{e}+α^2_{1}σ^2_{e}+α^2_{2}σ^2_{e}+α^2_{3}σ^2_{e}+...+α^2_{q}σ^2_{e}$
 
 Además. podemos encontrar que:
 
@@ -79,7 +85,7 @@ Los modelos ARMA combinan ambos procesos. El caso generalizado se define como:
 
 ![image](https://user-images.githubusercontent.com/106888200/224458049-4972bdb3-22c3-4d6b-a61b-71fcfebc46f1.png)
 
-En donde et es un ruido blanco. Como vemos se tiene el conjunto de coeficientes ![image](https://user-images.githubusercontent.com/106888200/224458075-5eac80de-cae6-48c1-ae08-9be46dbc0767.png) del proceso AR y ![image](https://user-images.githubusercontent.com/106888200/224458093-c40b3e4b-666b-4de7-ad79-424bee3ebb80.png) del proceso MA.
+En donde $e_t$  es un ruido blanco. Como vemos se tiene el conjunto de coeficientes ![image](https://user-images.githubusercontent.com/106888200/224458075-5eac80de-cae6-48c1-ae08-9be46dbc0767.png) del proceso AR y ![image](https://user-images.githubusercontent.com/106888200/224458093-c40b3e4b-666b-4de7-ad79-424bee3ebb80.png) del proceso MA.
 
 Hasta este punto solo hemos dado un pincelazo de toda la matemática detrás de los procesos autorregresivos y de medias móviles. Al igual que en otros temas, es necesario ahondar en la parte matemática de la mano con los temas de programación. Con esto en mente vamos a profundizar en la parte de programación de dos tópicos estadísticos; por una parte, analizaremos la presencia de estacionariedad y luego veremos cómo decidir el número de rezagos del modelo de acuerdo con los datos que queremos modelar. Antes de pasar a este diagnóstico de los modelos hagamos algunas simulaciones de los modelos vistos.
 
@@ -97,18 +103,18 @@ Para crear el programa iniciamos con `program define` seguido por el nombre, en 
 
 Nuestro programa usará algunos parámetros:
 
-- `$dgp`: Será un índice que permita identificar a la serie a crear, por ejemplo, yt1 o yt2.
+- `$dgp`: Será un índice que permita identificar a la serie a crear, por ejemplo, $y_{t1}$ o $y_{t2}$.
 - `$T`: El tamaño de la serie.
 - `$alpha0` y `$alpha1`: Son los parámetros vistos en la ecuación del MA(1).
 
-Creamos un ruido blanco con valores entre 0 y 1 usando `gen` et = rnormal(0,1), luego la serie que almacenará los valores, yt$gdpt. Opcionalmente reemplazamos el valor inicial de la serie por 1 para que todas partan del mismo punto. Hasta este punto tenemos un ruido blanco y una serie vacía. El siguiente loop reemplaza los valores de yt$gdpt a partir de los parámetros y et de la siguiente manera:
+Creamos un ruido blanco con valores entre 0 y 1 usando `gen` $e_t$  = rnormal(0,1), luego la serie que almacenará los valores, yt$gdpt. Opcionalmente reemplazamos el valor inicial de la serie por 1 para que todas partan del mismo punto. Hasta este punto tenemos un ruido blanco y una serie vacía. El siguiente loop reemplaza los valores de yt$gdpt a partir de los parámetros y $e_t$  de la siguiente manera:
 
 ![image](https://user-images.githubusercontent.com/106888200/224458153-4a044a4c-e5e8-4ab1-ae75-3a9d71ed5562.png)
 
 Para definir el rezago de la perturbación restamos una unidad a la ubicación, i, entre corchetes.
 Para que el programa corra debemos definir los parámetros. Como hemos fijado estos parámetros usando $, necesitamos usar `globals` para definirlos por lo que definimos los valores de los así como los nombres que usaremos para las series `$dgp`. En este caso crearemos 5 series (dgp=1(1)5) con 0=1 y 1=0.5. Dado que hemos fijado la ‘semilla’ al inicio del código cada serie saldrá siempre con los mismos valores. Es decir, yt1 siempre tendrá los mismos valores, yt2 también y así. 
 
-Adicionalmente, yt1 será distintos a yt2.
+Adicionalmente, $y_{t1}$ será distintos a $y_{t2}$.
 Veamos:
 
 ```
