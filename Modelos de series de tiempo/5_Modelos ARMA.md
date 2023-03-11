@@ -65,27 +65,34 @@ En donde { $e_t$ } es un ruido blanco. Como vemos, las estructura de los rezagos
 $E[ $y_t$ ]= α_0$
 
 
-Var[ $y_t$ ]= $σ^2_{e}+α^2_{1}σ^2_{e}+α^2_{2}σ^2_{e}+α^2_{3}σ^2_{e}+...+α^2_{q}σ^2_{e}$
+Var[ $y_t$ ]= $σ^2_{e}+α^2_{1}σ^2_{e}+α^2_{2}σ^2_{e}+α^2_{3}σ^2_{e}+...+α^2_{q}σ^2_{e}=σ^2_{e}(1+α^2_{1}+α^2_{2}+α^2_{3}+...+α^2_{q})$
 
 Además. podemos encontrar que:
 
-![image](https://user-images.githubusercontent.com/106888200/224458007-84f3dd2c-6fab-45e5-a058-8b594c9a4a0d.png)
+$Cov[y_t,y_{t-k}]≠0, si k≤q$
+
+
+$Cov[y_t,y_{t-k}]=0, si k>q$
 
 Consideremos un proceso MA(1):
 
-![image](https://user-images.githubusercontent.com/106888200/224458018-042f5bb9-7cf0-45bb-9be8-19d5f4b71763.png)
+$y_t=α_0+e_t+α_1e_{t-1}$  
 
 Entonces su media y varianza sería igual a: 
 
-![image](https://user-images.githubusercontent.com/106888200/224458027-b1618ecb-3edb-4848-8173-d1b7b3ba6c67.png)
+E[ $y_t$ ]= $α_0$
+
+
+Var[ $y_t$ ]= $σ^2_{e}(1+α^2_{1}) $
+
 
 ### 5.3 ARMA
 
 Los modelos ARMA combinan ambos procesos. El caso generalizado se define como:
 
-![image](https://user-images.githubusercontent.com/106888200/224458049-4972bdb3-22c3-4d6b-a61b-71fcfebc46f1.png)
+$$y_t=Φ_0+\sum_{j=1}^pΦ_{j}y_{t-j}+e_t+\sum_{j=1}^qα_{j}e_{t-j}$$
 
-En donde $e_t$  es un ruido blanco. Como vemos se tiene el conjunto de coeficientes ![image](https://user-images.githubusercontent.com/106888200/224458075-5eac80de-cae6-48c1-ae08-9be46dbc0767.png) del proceso AR y ![image](https://user-images.githubusercontent.com/106888200/224458093-c40b3e4b-666b-4de7-ad79-424bee3ebb80.png) del proceso MA.
+En donde $e_t$  es un ruido blanco. Como vemos se tiene el conjunto de coeficientes ${Φ_{j}}^p_{j=1}$ del proceso AR y ${α_{j}}^q_{j=1}$ del proceso MA.
 
 Hasta este punto solo hemos dado un pincelazo de toda la matemática detrás de los procesos autorregresivos y de medias móviles. Al igual que en otros temas, es necesario ahondar en la parte matemática de la mano con los temas de programación. Con esto en mente vamos a profundizar en la parte de programación de dos tópicos estadísticos; por una parte, analizaremos la presencia de estacionariedad y luego veremos cómo decidir el número de rezagos del modelo de acuerdo con los datos que queremos modelar. Antes de pasar a este diagnóstico de los modelos hagamos algunas simulaciones de los modelos vistos.
 
@@ -109,12 +116,11 @@ Nuestro programa usará algunos parámetros:
 
 Creamos un ruido blanco con valores entre 0 y 1 usando `gen` $e_t$  = rnormal(0,1), luego la serie que almacenará los valores, yt$gdpt. Opcionalmente reemplazamos el valor inicial de la serie por 1 para que todas partan del mismo punto. Hasta este punto tenemos un ruido blanco y una serie vacía. El siguiente loop reemplaza los valores de yt$gdpt a partir de los parámetros y $e_t$  de la siguiente manera:
 
-![image](https://user-images.githubusercontent.com/106888200/224458153-4a044a4c-e5e8-4ab1-ae75-3a9d71ed5562.png)
+$y_t=α_0+e_t+α_1e_{t-1}$
 
 Para definir el rezago de la perturbación restamos una unidad a la ubicación, i, entre corchetes.
-Para que el programa corra debemos definir los parámetros. Como hemos fijado estos parámetros usando $, necesitamos usar `globals` para definirlos por lo que definimos los valores de los así como los nombres que usaremos para las series `$dgp`. En este caso crearemos 5 series (dgp=1(1)5) con 0=1 y 1=0.5. Dado que hemos fijado la ‘semilla’ al inicio del código cada serie saldrá siempre con los mismos valores. Es decir, yt1 siempre tendrá los mismos valores, yt2 también y así. 
+Para que el programa corra debemos definir los parámetros. Como hemos fijado estos parámetros usando $, necesitamos usar `globals` para definirlos por lo que definimos los valores de los así como los nombres que usaremos para las series `$dgp`. En este caso crearemos 5 series (dgp=1(1)5) con $α_0=1$ y $α_1=0.5$. Dado que hemos fijado la ‘semilla’ al inicio del código cada serie saldrá siempre con los mismos valores. Es decir, yt1 siempre tendrá los mismos valores, $y_{t2}$ también y así. Adicionalmente, $y_{t1}$ será distintos a $y_{t2}$.
 
-Adicionalmente, $y_{t1}$ será distintos a $y_{t2}$.
 Veamos:
 
 ```
@@ -128,11 +134,12 @@ Grafiquemos las series.
 
 ![image](https://user-images.githubusercontent.com/106888200/224458225-44263dd1-51eb-43dc-81db-839c6ae7494b.png)
 
-Probemos aumentar el valor de α1 a un número mayor.
+Probemos aumentar el valor de $α_1$ a un número mayor.
 
 ![image](https://user-images.githubusercontent.com/106888200/224458272-fe7cc2bc-c166-4482-8f06-be8bf25548d9.png)
 
 Ahora, sigamos un procedimiento similar para simular una serie AR(1).
+
 El procedimiento es muy similar al del MA. La principal diferencia se encuentra al momento de definir el proceso. Ahora tenemos que definir los parámetros - y la ecuación de acuerdo a un AR(1).
 
 ```
@@ -140,18 +147,17 @@ El procedimiento es muy similar al del MA. La principal diferencia se encuentra 
 
 En la ecuación vemos que se usa la siguiente fórmula:
 
-![image](https://user-images.githubusercontent.com/106888200/224458297-bd69adb4-568e-4228-b329-c259756fd40b.png)
+$y_t=Φ_0+Φ_1y_{t-1}+e_t$
 
 Corramos algunas simulaciones:
 
 ![image](https://user-images.githubusercontent.com/106888200/224458318-75ca56e4-74f9-4cfe-a9b5-ba8ffad12da8.png)
 
-Veamos qué ocurre si asumimos un Φ1 = 0.99.
+Veamos qué ocurre si asumimos un $Φ_1$ = 0.99.
 
 ![image](https://user-images.githubusercontent.com/106888200/224458334-2291caa8-b03c-40e7-b9c7-ea661c742509.png)
 
-Si consideramos Φ1 = 0.99 la serie empieza a diferir del comportamiento previo. En este caso, los valores empiezan a subir siguiendo una tendencia mientras que en el caso previo los valores circulan alrededor del promedio. Recordemos que el promedio es igual a 
-![image](https://user-images.githubusercontent.com/106888200/224458372-4bb0b21f-e86b-4a72-80da-4c6e4f67deb0.png)  por lo que ![image](https://user-images.githubusercontent.com/106888200/224458358-226eb1c4-b6db-430b-a440-431ba52b41ba.png)
+Si consideramos $Φ_1$ = 0.99 la serie empieza a diferir del comportamiento previo. En este caso, los valores empiezan a subir siguiendo una tendencia mientras que en el caso previo los valores circulan alrededor del promedio. Recordemos que el promedio es igual a E[ $y_t$ ]= $\frac{Φ_0}{1-Φ_1}$ por lo que $lim_{Φ_1→1}$ E[ $y_t$ ]=∞
 
 
 ## Sigue aprendiendo
