@@ -3,9 +3,9 @@
 ## 7.  PRONÓSTICO
 ---------------------------------
 
-Un valor pronosticado se puede ver como el estimador de la variable dependiente, ![]() yt. Este puede ser obtenido tanto dentro del rango de los datos (in-sample) como para valores de fechas fuera de los datos (out-of-sample).
-En nuestro caso los datos están fijados entre 1994m7 y 2020m5. Los datos out-of-sample partirán desde 2020m6. Para generar los nuevos valores debemos expandir el tamaño de la base de datos con el comando. Siendo estrictos, llamaríamos a los valores dentro de la muestro como predicciones y a los valores fuera de la muestra como pronósticos.
-Vamos a generar los valores para dos años a final de la muestra, es decir, desde 2020m6 hasta 2022m5. Para generar los nuevos espacios dentro de la muestra usamos el comando tsappend, add(24). Cómo usamos meses, 2 años equivalen a 24 meses.
+Un valor pronosticado se puede ver como el estimador de la variable dependiente, $\hat{y_t}$. Este puede ser obtenido tanto dentro del rango de los datos (in-sample) como para valores de fechas fuera de los datos (out-of-sample).
+En nuestro caso los datos están fijados entre $1994m^7$ y $2020m^5$. Los datos out-of-sample partirán desde $2020m^6$. Para generar los nuevos valores debemos expandir el tamaño de la base de datos con el comando. Siendo estrictos, llamaríamos a los valores dentro de la muestro como predicciones y a los valores fuera de la muestra como pronósticos.
+Vamos a generar los valores para dos años a final de la muestra, es decir, desde $2020m^6$ hasta $2022m^5$. Para generar los nuevos espacios dentro de la muestra usamos el comando tsappend, add(24). Cómo usamos meses, 2 años equivalen a 24 meses.
 
 ![]()
 
