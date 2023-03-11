@@ -1,7 +1,7 @@
 # Modelo de series de tiempo
 
 ## 9.  MODELOS MULTIVARIADOS
----------------------------------
+
 
 En la parte previa de series de tiempo nos dedicamos a analizar algunas regresiones univariadas, es decir, en donde solo tenemos una variable dependiente. En esta parte aprenderemos algunos modelos multivariados. En estos modelos tenemos más de una variable dependiente. 
 
@@ -19,30 +19,35 @@ Los modelos VAR se componen de un conjunto de ecuaciones simultáneas similares 
 
 Adicionalmente, realizaremos algunos procedimientos nuevos referidos a la generación de funciones de impulso-respuesta y a la descomposición de la varianza del error con el objetivo de desenredar la relación entre el conjunto de variables dependientes. Partamos de un modelo básico VAR(1):
 
-![]()
+$$y_t=\beta_{10}+\beta_{11}y_{t-1}+\beta_{12}x_{t-1}+\beta_{13}z_{t-1}+e_{yt}$$
 
-En donde yt y xt son las variables dependientes y eyt, ext son ruidos blancos para cada serie. También podemos expresar este modelo de manera matricial de la siguiente manera:
+$$x_t=\beta_{20}+\beta_{21}y_{t-1}+\beta_{22}x_{t-1}+\beta_{23}z_{t-1}+e_{yt}$$
 
-![]()
+En donde $y_t$ y $x_t$ son las variables dependientes y eyt, ext son ruidos blancos para cada serie. También podemos expresar este modelo de manera matricial de la siguiente manera:
+
+$$[y_tx_t]= [\beta_{10}\beta_{20}]+[\beta_{11}\beta_{12}\beta_{21}\beta_{22}][y_{t-1}x_{t-1}]+[e_{yt}e_{xt}]$$
 
 O también:
 
-![]()
+$$Y_t=B_0+B_1Y_{t-1}+E_t$$
 
 Al igual que en el caso ARMA, debemos verificar que las series yt y xt sean estacionarias. Por último, se asume que:
 
-- ![]()
-- ![]()
-- ![]()
-- ![]()
+- $E_t ~ N (0,Σ_E)$
+ 
+- $Var(E_t)=Σ_E$
+
+- $Cov(E_t, E_{t-i})=0, i=1,2,...$
+
+- $Cov(e_{yt}, e_{xt})=0, i=1,2,...$
 
 Tomemos las series de variación mes a mes de inversión minera junto a la serie de variación mes a mes en los términos de intercambio de la siguiente manera:
 
-![]()
+$$Y_t=B_0+B_1Y_{t-1}+E_t$$
 
 En donde: 
 
-![]()
+$$Y_t=[ΔTI_tΔInvMin_t]$$
 
 Los criterios de selección de rezagos son los mismos usamos para ver los rezagos de los modelos ARMA. En este caso podemos usar el comando varsoc para sistematizar el procedimiento que vimos previamente. Esto considerando que el comando varsoc solo compara modelos basados en rezagos de las dependientes. Debemos seleccionar las variables y el número máximo de rezagos a considerar.
 
@@ -53,7 +58,7 @@ Los criterios de selección de rezagos son los mismos usamos para ver los rezago
 
 El comando genera los criterios de información para cada conjunto de rezagos. El modelo seleccionado es el que tiene *. En este caso es el modelo con hasta el 2do rezagos.
 
-![]()
+$$Y_t=B_0+B_1Y_{t-1}+B_2Y_{t-2}+E_t$$
 
 Luego de seleccionar el número de rezagos podemos estimar el modelo con el comando var indicando el número de rezagos a considerar. Veamos la primera parte del resultado:
 
@@ -131,18 +136,21 @@ Al VAR visto previamente también se le puede conocer como VARreducido en el sen
 
 Esta forma estructural se llama Structural VAR o SVAR. Su desarrollo es bastante amplio puesto que se puede desarrollar distintas maneras de estimar el VAR de manera estructural. En este caso veremos una forma general e introductoria de cómo estimarlos en Stata. Consideremos un VAR de la siguiente manera:
 
-![]()
-![]()
+$$Y_t=A_1Y_{t-1}+...+A_kY_{t-k}+E_t$$
+
+$$E(E_tE_t)=Σ_E)$$
 
 Si consideramos los efectos contemporáneos tendríamos un sistema como el siguiente:
 
-![]()
+$$A_tY_t=C_1Y_{t-1}+...+C_2Y_{t-k}+BE_t$$
 
 En donde:
 
-![]()
-![]()
-![]()
+$$E_t=BU_t$$
+
+$$A ≠ I$$
+
+$$E(U_tU_t)=I$$
 
 Entonces, el objetivo es estimar conjuntamente A, B y C pero no es posible debido a que no es posible identificarlos correctamente. Sobre este punto se puede desarrollar argumentos estadísticos que salen del tema de programación. En resumen, se necesita considerar algún criterio para poder identificar y estimar los parámetros estructurales. Estos criterios pueden considerar información de ‘corto plazo’ , de ‘largo plazo’ o de otro tipo.
 
@@ -150,9 +158,9 @@ Entonces, el objetivo es estimar conjuntamente A, B y C pero no es posible debid
 
 Un método de identificación común parte de asumir que B = I y restringir los valores de A para que sea una matriz triangular inferior de ceros. Por lo que se puede recuperar los valores de las variables a partir de una descomposición de Cholesky. Esta estrategia asume cierta causalidad de las variables, por ejemplo, si A es triangular inferior:
 
-![]() 
+$$[AY_t]= [1\alpha_{02}\alpha_{02}1][y_tx_t]=[1\alpha_{02}\alpha_{02}1][y_tx_t]=[y_t\alpha_{02}y_t+x_t]$$ 
 
-Entonces yt no se ve afectada contemporáneamente por xt mientras que x depende de a02yt. Si consideramos que la inversión minera es más exógena que los términos de intercambio debido a que la primera depende de la demanda internacional entonces podemos asumir una estrategia como esta. Veamos cómo implementarlo en Stata.
+Entonces $y_t$ no se ve afectada contemporáneamente por $x_t$ mientras que x depende de $a_{02}y_t$. Si consideramos que la inversión minera es más exógena que los términos de intercambio debido a que la primera depende de la demanda internacional entonces podemos asumir una estrategia como esta. Veamos cómo implementarlo en Stata.
 
 Estimamos el SVAR con el comando svar. Este nos permite introducir restricciones de corto y largo plazo:
 
