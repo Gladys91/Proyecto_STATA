@@ -25,7 +25,27 @@ $$x_t=\beta_{20}+\beta_{21}y_{t-1}+\beta_{22}x_{t-1}+\beta_{23}z_{t-1}+e_{yt}$$
 
 En donde $y_t$ y $x_t$ son las variables dependientes y eyt, ext son ruidos blancos para cada serie. También podemos expresar este modelo de manera matricial de la siguiente manera:
 
-$$[y_tx_t]= [\beta_{10}\beta_{20}]+[\beta_{11}\beta_{12}\beta_{21}\beta_{22}][y_{t-1}x_{t-1}]+[e_{yt}e_{xt}]$$
+$$
+\left(\begin{array}{cc} 
+y_{t}\\
+x_{t}
+\end{array}\right)=
+\left(\begin{array}{cc}
+β_{10}\\ 
+β_{20}
+\end{array}\right) +
+\left(\begin{array}{cc}
+β_{11} & β_{12}\\
+β_{21} & β_{22}
+\end{array}\right)
+\left(\begin{array}{cc} 
+y_{t-1}\\
+x_{t-1}
+\end{array}\right) +
+\left(\begin{array}{cc} 
+e_{yt}\\
+e_{xt}
+\end{array}\right)$$
 
 O también:
 
@@ -174,7 +194,8 @@ a_{02} & 1
 \end{array}\right)
 \left(\begin{array}{cc} 
 y_t\\
-x_t\end{array}\right)=
+x_t\end{array}\right)
++
 \left(\begin{array}{cc} 
 y_t\\
 a_{02}y_t+x_t
