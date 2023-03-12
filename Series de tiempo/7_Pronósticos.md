@@ -3,14 +3,28 @@
 ## 7.  PRONÓSTICO
 
 Un valor pronosticado se puede ver como el estimador de la variable dependiente, $\hat{y_t}$. Este puede ser obtenido tanto dentro del rango de los datos (in-sample) como para valores de fechas fuera de los datos (out-of-sample).
-En nuestro caso los datos están fijados entre $1994m^7$ y $2020m^5$. Los datos out-of-sample partirán desde $2020m^6$. Para generar los nuevos valores debemos expandir el tamaño de la base de datos con el comando. Siendo estrictos, llamaríamos a los valores dentro de la muestro como predicciones y a los valores fuera de la muestra como pronósticos.
-Vamos a generar los valores para dos años a final de la muestra, es decir, desde $2020m^6$ hasta $2022m^5$. Para generar los nuevos espacios dentro de la muestra usamos el comando tsappend, add(24). Cómo usamos meses, 2 años equivalen a 24 meses.
+En nuestro caso los datos están fijados entre $1994m7$ y $2020m5$. Los datos out-of-sample partirán desde $2020m6$. Para generar los nuevos valores debemos expandir el tamaño de la base de datos con el comando. Siendo estrictos, llamaríamos a los valores dentro de la muestro como predicciones y a los valores fuera de la muestra como pronósticos.
+Vamos a generar los valores para dos años a final de la muestra, es decir, desde $2020m6$ hasta $2022m5$. Para generar los nuevos espacios dentro de la muestra usamos el comando tsappend, add(24). Cómo usamos meses, 2 años equivalen a 24 meses.
 
 ![image](https://user-images.githubusercontent.com/106888200/224491809-80419901-ae34-4424-aafd-8089bcc53115.png)
 
 Para generar el pronóstico usaremos un conjunto de comandos forecast. Para ello corremos el modelo y guardamos los resultados con estimates store seguido por el nombre que queremos ponerle, por ejemplo, ar. 
 
 ```
+use "Mensuales_bcrp"
+tsset date 
+
+* Forecasting
+
+tsappend, add(24)	// Expandimos la base
+gen ti_g = (ti - l12.ti)/l12.ti 
+arima ti_g, ar(1 3 6 7 12 13) // Rezago 1, 2, 6, 7, 12 y 13
+estimates store ar
+
+forecast create arma, replace
+forecast estimates ar
+forecast describe
+forecast solve
 ```
 
 Seguimos los siguientes pasos:
@@ -31,6 +45,12 @@ Grafiquemos los valores pronosticados:
 La línea en rojo indica los valores pronosticados. Veamos el código que usamos:
 
 ```
+twoway ///
+(tsline f_ti_g if tin(2020m6, 2022m5) , lcolor(red)) ///
+(tsline ti_g , lcolor(blue)) ///
+,legend(off) ttitle("") ytitle("%") tline(2020m5) ///
+ tlabel(1995m7(12)2022m5,grid labsize(*0.5) angle(60)) ///
+ title("Tasa de Crecimiento de los Términos de Intercambio")
 ```
 
 Usamos twoway para graficar la serie de pronóstico fuera de la muestra junto a los datos observados. Adicionalmente cambiamos los colores de cada serie y editamos los ejes y títulos. Adicionalmente, usamos un comando nuevo tline para graficar una linea en un periodo específico. En este caso, creamos una linea en la última fecha.
