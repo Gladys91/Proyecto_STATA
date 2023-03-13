@@ -105,9 +105,39 @@ Hasta este punto solo hemos dado un pincelazo de toda la matemática detrás de 
 En esta sección vamos a simular dos series simples bajo distintos valores de parámetros: AR(1) y MA(1), con dos objetivos. El primero es ver cómo cambian las series bajo distintos valores de parámetros. El segundo objetivo es aprender comandos nuevos. En este caso comenzaremos por definir un programa nuevo dentro de Stata, es decir un comando nuevo sobre el cuál evaluar algunos datos o parámetros. Definamos algunas condiciones previas. Ya conocemos la función de set `more off` y de `clear`.
 Luego de crear el `shell` de los datos, podemos crear una función o comando nuevo que permita simular los datos. Para ello aprenderemos a usar el comando `program`. Este comando es relativamente avanzado, puesto que permite modificar y crear nuevos comandos a partir de las instrucciones que incluyamos dentro. 
 
+Es necesario definir algunas cosas previas como:
+
+```
+*Preámbulo:
+
+clear
+set seed 1
+global T=50
+set obs $T
+gen t=_n
+tsset t
+```
+
 Veamos el siguiente programa:
 
 ```
+* 	Creamos un programa para simular las series 
+* Inicio del programa
+
+capture program drop DGP
+program define DGP
+
+capture drop et 
+gen et = rnormal(0,1)
+gen yt$dgp =.
+replace yt$dgp =1 in 1
+
+forvalues i=2(1)$T {
+quietly replace yt$dgp = $alpha0 + $alpha1 * et[`i'-1] + et[`i'] in `i'
+}
+
+end
+* Fin del programa
 ```
 
 Para crear el programa iniciamos con `program define` seguido por el nombre, en este caso `DGP` (DGP viene de Data Generating Process o Proceso Generador de Datos); y, termina con end. Adicionalmente escribimos una linea previa, `program drop GDP`, que nos permite eliminar el programa llamado DGP de la memoria de Stata. 
@@ -128,17 +158,47 @@ Para que el programa corra debemos definir los parámetros. Como hemos fijado es
 Veamos:
 
 ```
+* Proponemos algunos valores para simular las series
+capture drop yt*
+global phi0=1
+global phi1=0.5
+
+forvalues dgp=1(1)5 {
+global dgp=`dgp'
+DGP
+}
+*
 ```
 
-Cada serie simulada sigue un proceso AR(1)
+Cada serie simulada sigue un proceso MA(1)
 
 ![image](https://user-images.githubusercontent.com/106888200/224458210-e9d5731c-0800-45a6-ab54-7a35b31811aa.png)
 
 Grafiquemos las series.
 
+```
+tsline yt*, lcolor(gs0 gs0 gs0 gs0 gs0) lpattern(solid dash longdash dash_dot dot) ///
+ttitle("") ytitle("") legend(cols(5)) title("MA(1), {&alpha}{subscript:0}= $alpha0 {&alpha}{subscript:1}= $alpha1")
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224458225-44263dd1-51eb-43dc-81db-839c6ae7494b.png)
 
 Probemos aumentar el valor de $α_1$ a un número mayor.
+
+```
+capture drop yt*
+global alpha0=1
+global alpha1=0.95
+
+forvalues dgp=1(1)5 {
+gl dgp=`dgp'
+DGP
+}
+*
+
+tsline yt*, lcolor(gs0 gs0 gs0 gs0 gs0) lpattern(solid dash longdash dash_dot dot) ///
+ttitle("") ytitle("") legend(cols(5)) title("MA(1), {&alpha}{subscript:0}= $alpha0 {&alpha}{subscript:1}= $alpha1")
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224458272-fe7cc2bc-c166-4482-8f06-be8bf25548d9.png)
 
@@ -147,6 +207,21 @@ Ahora, sigamos un procedimiento similar para simular una serie AR(1).
 El procedimiento es muy similar al del MA. La principal diferencia se encuentra al momento de definir el proceso. Ahora tenemos que definir los parámetros - y la ecuación de acuerdo a un AR(1).
 
 ```
+* Inicio del programa
+capture program drop DGP
+program define DGP
+
+capture drop et 
+gen et = rnormal(0,1)
+gen yt$dgp =.
+replace yt$dgp =1 in 1
+
+forvalues i=2(1)$T {
+quietly replace yt$dgp = $phi0 + $phi1 * yt$dgp[`i'-1]+et[`i'] in `i'
+}
+
+end
+* Fin del programa
 ```
 
 En la ecuación vemos que se usa la siguiente fórmula:
@@ -155,9 +230,37 @@ $$y_t=Φ_0+Φ_1y_{t-1}+e_t$$
 
 Corramos algunas simulaciones:
 
+```
+* Cambiar los valores para simular las series
+capture drop yt*
+global phi0=1
+global phi1=0.5
+
+forvalues dgp=1(1)5 {
+global dgp=`dgp'
+DGP
+}
+*
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224458318-75ca56e4-74f9-4cfe-a9b5-ba8ffad12da8.png)
 
 Veamos qué ocurre si asumimos un $Φ_1$ = 0.99.
+
+```
+capture drop yt*
+global phi0=1
+global phi1=0.5
+
+forvalues dgp=1(1)5 {
+global dgp=`dgp'
+DGP
+}
+*
+
+tsline yt*, lcolor(gs0 gs0 gs0 gs0 gs0) lpattern(solid dash longdash dash_dot dot) ///
+ttitle("") ytitle("") legend(cols(5)) title("AR(1), {&phi}{subscript:0}= $phi0 {&phi}{subscript:1}= $phi1")
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224458334-2291caa8-b03c-40e7-b9c7-ea661c742509.png)
 
