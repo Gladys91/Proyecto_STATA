@@ -72,6 +72,7 @@ $$Y_t=[ΔTI_tΔInvMin_t]$$
 Los criterios de selección de rezagos son los mismos usamos para ver los rezagos de los modelos ARMA. En este caso podemos usar el comando varsoc para sistematizar el procedimiento que vimos previamente. Esto considerando que el comando varsoc solo compara modelos basados en rezagos de las dependientes. Debemos seleccionar las variables y el número máximo de rezagos a considerar.
 
 ```
+varsoc ti im, maxlag(8)
 ```
 
 ![image](https://user-images.githubusercontent.com/106888200/224494024-aed4b9c3-5ea3-4e3b-afa7-1154b08f18c2.png)
@@ -81,6 +82,10 @@ El comando genera los criterios de información para cada conjunto de rezagos. E
 $$Y_t=B_0+B_1Y_{t-1}+B_2Y_{t-2}+E_t$$
 
 Luego de seleccionar el número de rezagos podemos estimar el modelo con el comando var indicando el número de rezagos a considerar. Veamos la primera parte del resultado:
+
+```
+var ti im, lags(1/2)
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224494032-b7da0e33-7100-4039-b2d8-d0fd4e397557.png)
 
@@ -92,6 +97,11 @@ En la segunda parte tenemos los coeficientes estimados:
 
 A pesar de que los coeficientes no sean significativos igual serán usados para estimaciones futuras, por ejemplo para las funciones de impulso-respuesta, por lo que no nos enfocaremos en interpretar los coeficientes de manera individual. Para obtener la matriz de varianza-covarianza tenemos que recuperarla de la estimación:
 
+```
+matrix varcov = e(Sigma)
+matrix list varcov
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224494058-23806cd1-e759-4968-b749-d05cb15a1a91.png)
 
 Podemos ver que los errores de cada ecuación no son independientes entre si. Por lo que se mantiene cierta endogeneidad entre ambas ecuaciones a pesar de considerarlas simultáneamente. Veremos con los SVAR una posible solución para esto. A partir de estos resultados analizaremos dos tópicos adicionales: Causalidad a ala Granger y Funciones de Impulso-Respuesta.
@@ -99,6 +109,10 @@ Podemos ver que los errores de cada ecuación no son independientes entre si. Po
 #### 9.1.1 Causalidad a la Granger
 
 Se dice que una variable xt causa a la Granger a yt si, dado el número de rezagos de yy , los rezagos de xt son conjuntamente significativos. Esta definición de causalidad no es la misma que se usa dentro del contexto de evaluación de impacto o de experimentos. Es una definición estadística particular. Para implementarlo usamos el comando vargranger luego de estimar el modelo.
+
+```
+vargranger
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224494070-3981e909-c661-4a43-9374-5fdcc3fcd5e9.png)
 
@@ -114,9 +128,16 @@ Un segundo conjunto de estadísticos usados para evaluar los VAR consiste en ‘
 Por lo que primero debemos crear el archivo estableciendo algunas cosas. Veamos
 Con irf create creamos un archivo .irf llamado var_irf. Dentro de este archivo podemos tener varias estimaciones de VAR guardadas por lo que a esta estimación en particular la llamamos irf_1. Adicionalmente, establecemos un horizonte de periodos de 36 (si estamos en meses esto sería igual a 3 años) y definimos que se reemplacen los archivos en cada corrida con el comando replace
 
+```
+var ti im, lags(1/2)
+
+irf create var_irf , step(36) set(irf_1) replace
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224494241-ff46f9cf-3f1e-48db-a751-f76187e5434f.png)
 
 Luego podemos usar algunas de las opciones de irf graph para presentarlos resultados que queremos:
+
 
 ![image](https://user-images.githubusercontent.com/106888200/224494259-815a9db9-5087-4ba4-bb92-4743978b3717.png)
 
@@ -124,6 +145,13 @@ Cada opción tiene un soporte teórico que permite interpretarlos por lo que les
 Usamos los siguientes códigos para estimar los tres gráficos:
 
 ```
+irf create var_irf , step(36) set(irf_1) replace
+
+irf graph oirf, impulse(ti im) response(ti im) xtitle("Periodos") 
+
+irf graph coirf, impulse(ti im) response(ti im) xtitle("Periodos") 
+
+irf graph fevd, impulse(ti im) response(ti im) xtitle("Periodos") 
 ```
 
 - oirf: Para la función ortogonalizada de impulso-respuesta
@@ -212,12 +240,16 @@ Estimamos el SVAR con el comando svar. Este nos permite introducir restricciones
 Para usar el comando debemos restringir los valores de las matrices A y B como lo hicimos en las ecuaciones. Para ello creamos las siguientes matrices:
 
 ```
+matrix A1 = (1,0 \ .,1)
+
+matrix B1 = (.,0 \ 0,.)
 ```
 
 En A fijamos el valor del elemento superior derecho a 0 mientras que en B fijamos los valores que no están en la diagonal en 0.
 Usamos ambas matrices para estimar el SVAR de la siguiente manera:
 
 ```
+svar im ti, lags(1/2) aeq(A1) beq(B1)
 ```
 
 Al igual que el VAR indicamos el número de rezagos. Adicionalmente usamos las opciones aeq() y beq() para usar las matrices que definimos previamente. De esta manera estimamos los parámetros:
@@ -226,9 +258,20 @@ Al igual que el VAR indicamos el número de rezagos. Adicionalmente usamos las o
 
 Veamos los parámetros estimados creando matrices con los resultados recuperados:
 
+```
+matlist e(A)
+matlist e(B)
+```
+
 ![image](https://user-images.githubusercontent.com/106888200/224494453-4a1f3c48-9aa3-447f-8b70-55a1e1c6d614.png)
 
 Al igual que el VAR podemos usar toda esta información para estimar las funciones de impulso-respuesta estructurales. En este luego de crear el archivo .irf usamos la opción irf graph sirf para indicar que es el IRF estructural.
+
+```
+irf create svar_irf , step(36) set(irf_2) replace
+
+irf graph sirf, impulse(ti im) response(ti im) xtitle("Periodos") 
+```
 
 ![image](https://user-images.githubusercontent.com/106888200/224494458-c275a0ab-d58e-46a0-b5e5-d803dbeca33d.png)
 
