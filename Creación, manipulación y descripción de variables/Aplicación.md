@@ -1,4 +1,4 @@
-# REPLICAR DATOS OFICIALES DE LA INCIDENCIA DE LA POBREZA MONETARIA 2020
+# Aplicación
 
 Para integrar los puntos estudiados en este modulo, replicaremos un ejemplo  del laboratorio de manejo de base de datos 2023 - 0 de Diego Quispe Ortogorin, para lo cual realizaremos un reporte macroeconómico.
 
