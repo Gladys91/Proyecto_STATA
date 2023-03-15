@@ -1,101 +1,81 @@
 # REPLICAR DATOS OFICIALES DE LA INCIDENCIA DE LA POBREZA MONETARIA 2020
 
-Para integrar todos los puntos de la sesión, replicaremos los datos oficiales de la tasa de pobreza del 2020 del INEI.
+Para integrar los puntos estudiados en este modulo, replicaremos un ejemplo  del laboratorio de manejo de base de datos 2023 - 0 de Diego Quispe Ortogorin, para lo cual realizaremos un reporte macroeconómico.
 
-![image](https://user-images.githubusercontent.com/106888200/225192208-e356c23d-71f8-4a15-9ced-64fe3273ac06.png)
+Trabajando con la base de datos Penn World Table. PWT se encuentra en su versión 10.01 y contiene información sobre los niveles relativos de ingresos, producción, insumos y productividad, que cubre 183 países entre 1950 y 2019. Podemos descargar los módulos directamente desde su [página web ](https://www.rug.nl/ggdc/productivity/pwt/?lang=en "página web ") o descargalo directamente desde el siguente [enlace](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "enlace"). 
 
-Esta información puedes leerla en el el informe técnico de [Evolución de la Pobreza 2009-2020](https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/pobreza2020/Pobreza2020.pdf "Evolución de la Pobreza 2009-2020"). 
+iniciamos abriendo nuestro do file para lo cual digitamos `do edit` en la ventana de comandos, estableceremos nuestro directorio y abriremos nuestra base de datos
 
-Trabajaremos con el modulo 34 (sumaria - variables calculadas) de la ENAHO metodología actualizada y condiciones de vida y pobreza - ENAHO del año 2020. Podemos descargar los módulos directamente desde la [_base de microdatos del INEI_](https://proyectos.inei.gob.pe/microdatos/ "_ base de microdatos del INEI_") y descomprimirlos o descargalos ya descomprimidos y limpios desde el siguente [enlace](https://github.com/Gladys91/Proyecto_STATA/tree/main/_An%C3%A1lisis/Data "enlace").
 
 ```
-use "sumaria-2020.dta"
+cd "C:\Users\Usuario\Documents\GitHub\Proyecto_STATA\_Análisis\Data" //cambiar cd
+use "pwt1001.dta"
 ```
 
-Crearemos las variables de corte: el área urbano y rural se creará con la variable estrato mientras que para crear las regiones naturales costa, sierra y selva utilizaremos la variable dominio. Crearemos la variable Dominio con el comando `gen` y etiquetaremos costa urbana, costa rural, sierra urbana, sierra rural, selva urbana, selva rural y Lima metropolitana siguiendo el código. 
+Luego de cargar los datos podemos hacer una descripción rápida de los
+datos y sus etiquetas con el comando `describe`:
 
 ```
-*Crear área (estrato)
-replace estrato = 1 if dominio ==8 
-recode estrato (1/5=1 "Urbana") (6/8=2 "Rural"), gen(Area)
-lab var Area "Urbana = 1 Rural = 2"
-
-*Crear Región Natural (dominio)
-recode dominio (1/3 8 = 1 "Costa") (4/6 = 2 "Sierra") (7 = 3 "Selva"), g(RNatural)
-lab var RNatural "Región Natural"
-label define Natural 1"Costa" 2 "Sierra" 3"Selva"
-label value RNatural Natural
-
-*Crear dominio Geográfico (Area y Región Natural)
-gen Dominio=1 if Area==1 & RNatural==1
-replace Dominio=2 if Area==2 & RNatural==1
-replace Dominio=3 if Area==1 & RNatural==2
-replace Dominio=4 if Area==2 & RNatural==2
-replace Dominio=5 if Area==1 & RNatural==3
-replace Dominio=6 if Area==2 & RNatural==3
-replace Dominio=7 if dominio==8
-label var Dominio "Dominio Geográfico"
-label define Dominio  1 "Costa urbana" 2 "Costa rural" 3 "Sierra urbana" 4 "Sierra rural" 5 "Selva urbana" 6 "Selva rural" 7 "Lima Metropolitana"
-label value Dominio Dominio
-
-*Crear departamentos (ubigeo)
-gen dpto= real(substr(ubigeo,1,2))
-lab var dpto "Departamentos"
-label define dptos 1"Amazonas" 2"Ancash" 3"Apurimac" 4"Arequipa" 5"Ayacucho" 6"Cajamarca" 7 "Callao" 8"Cusco" 9"Huancavelica" 10"Huanuco" 11"Ica" 12"Junin" 13"La Libertad" 14"Lambayeque" 15"Lima" 16"Loreto" 17"Madre de Dios" 18"Moquegua" 19"Pasco" 20"Piura" 21"Puno" 22"San Martin" 23"Tacna" 24"Tumbes" 25"Ucayali"
-lab val dpto dptos
+describe
 ```
 
-Procederemos a calcular el gasto per cápita mensual y la linea de pobreza a precios reales de lima.
+![image](https://user-images.githubusercontent.com/106888200/225217205-8108ab66-e0b2-44ac-861d-832ae770a27f.png)
+
+A pesar que de el PW nos brinda los datos están estandarizados a dolares del 2017 con PPP (poder de paridad de compra) lo que nos permite que los datos sean comparables para todos los países, algunos de estos no se pueden comparar directamente como el PBI para lo cual se crea nuevas variables con el comando `gen`.
+
 
 ```
-*Gasto real per capita mensual
-gen grpm=gashog2d/(ld*mieperho*12)
-
-*linea de pobreza a precios reales de Lima
-gen linear_pl=linea/(ld)
+* Creamos nuevas variables 
+gen GDB=rgdpna/pop // PBI per cápita
+gen logGDP=ln(rgdpna/pop) // logaritmo del PBI per cápita
+gen logK=ln(rnna/pop) // logaritmo del stock de capital per cápita
+gen logTFP=ln(rtfpna) // logaritmo de la productividad total de factores
+gen openness=(csh_x-csh_m) // indicador de grado apertura de un país
+gen share=csh_i // participación del capital en la formación de la producción
+gen labor=emp/pop 
+gen humanx=hc // indice del capital humano
 ```
 
-Recordemos que cuando usemos Sumaria que está a nivel de hogar, para poder obtener las estadísticas oficiales, no podemos usar el factor de expansión de manera directa, se debe generar una nueva variable que multiplique el factor de expansión por mieperho.
+Nuestro interés está solo en los países de Perú, Chile y Colombia.
 
 ```
-* Factor de expansión
-gen facpob=round(factor07*mieperho,1)
-label var facpob "Factor de expansión individuos Sumaria"
+* Nos quedamos solo con un conjunto de observaciones de acuerdo al país.
+
+keep if countrycode == "PER" | countrycode == "CHL" | countrycode == "COL"
 ```
 
-Declaremos el diseño muestral de nuestra muestra con el comando `svyset`.
+Compararemos el promedio del PBI per cápita de los ultimos 10 años de nuestra base.
 
 ```
-*Declarando la muestra
-svyset [pweight = facpob], psu(conglome) strata(estrato)
-
-svy: mean grpm
-svy: mean grpm, over(Dominio)
+bys countrycode: summ GDB if year>= 2010 & year<=2019
 ```
 
-Crearemos la variable pobre.
+![image](https://user-images.githubusercontent.com/106888200/225218916-17619db5-ddea-4276-a84d-f4b8ef26b3da.png)
+
+
+Realizaremos los graficos con la ayuda de un local para visualizar las tendencias de algunas de nuestras variables
 
 ```
-* Tasa de pobreza
-g pobre = (grpm < linear_pl)
+local paises PER CHL COL
+local graph_op `"xtitle("Año") lpattern(solid) lcolor(green) xlabel(1940(10)2020)"'
 
-sum pobre [iw=facpob]
-svy:mean pobre, over(dpto)
-svy:mean pobre, over(Area)
-svy:mean pobre, over(RNatural)
-svy:mean pobre, over(Dominio)
+foreach x of local paises{
+	line GDB year if countrycode == "`x'", `graph_op' ytitle("`x'") name("`x'" ,replace)
+}
+graph combine PER CHL COL, ycommon title("PBI per cápita, miles de USD")
+
+foreach x of local paises{
+	line logGDP year if countrycode == "`x'", `graph_op' ytitle("`x'") name("`x'" ,replace)
+}
+graph combine PER CHL COL, ycommon title("Logaritmo PBI per cápita")
+
+foreach x of local paises{
+	line logK year if countrycode == "`x'", `graph_op' ytitle("`x'") name("`x'" ,replace)
+}
+graph combine PER CHL COL, ycommon title("Logaritmo del stock de capital per cápita")
 ```
 
-Podemos verificar que nuestros resultados coinciden con los publicados por el INEI
-
-![image](https://user-images.githubusercontent.com/106888200/225204922-24a968d7-8ac9-4fe0-add3-4d5fc43164aa.png)
-
-![image](https://user-images.githubusercontent.com/106888200/225205074-e332653c-b2bd-43ec-bce9-9506d3c61522.png)
-
-![image](https://user-images.githubusercontent.com/106888200/225205118-828c2fe1-96a5-46fc-8ca9-8f66bf464023.png)
-
-
-
+![image](https://user-images.githubusercontent.com/106888200/225219114-e0917135-6f46-47b8-ac63-465f979844f4.png)
 
 
 
