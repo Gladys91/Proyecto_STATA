@@ -1,56 +1,44 @@
 ************
 *PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ
-* SCRIPT: 11_var_svar.do
-* OBJETIVO: Modelo VAR - SVAR
+* SCRIPT: 12_Aplicación.do
+* OBJETIVO: Modelo VAR
 ************
 
 *Preámbulo
-
-cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data"
+clear all
+cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // cambiar cd
 
 ************
+use "bcrp.dta"
 
-use "Mensuales2_bcrp"
+tsset date // establecer que la base de datos es una serie de tiempo
+keep if tin(2005m5, 2019m12)
 
-* Selección de rezagos
-tsset date
+* Vemos las series
 
-varsoc ti im, maxlag(8)
+tsline interes desempleo inf, ttitle("") ytitle("%") ///
+ legend(order(1 "Interés" 2 "Desempleo" 3 "Inflación") cols(3))
+  
+* Verificamos estacionariedad en cada una de las series
+dfuller interes
+dfuller desempleo
+dfuller inf 
 
-var ti im, lags(1/2)
+* Vemos el número de rezagos
+varsoc interes desempleo inf
 
-matrix varcov = e(Sigma)
-matrix list varcov
+* Estimamos el VAR
+varbasic inf desempleo interes , lags(1/2)
 
-* Caudalidad a la Granger
+matrix A1 = (1,0,0 \ .,1,0 \ .,.,1)
+matrix B1 = (.,0,0 \ 0,.,0 \ 0,0,.)
 
-vargranger
-
-* Función de Impulso Respuesta (IRF)
-
-var ti im, lags(1/2)
-
-irf create var_irf , step(36) set(irf_1) replace
-
-irf graph oirf, impulse(ti im) response(ti im) xtitle("Periodos") 
-
-irf graph coirf, impulse(ti im) response(ti im) xtitle("Periodos") 
-
-irf graph fevd, impulse(ti im) response(ti im) xtitle("Periodos") 
-
-* VAR Estructural
-
-matrix A1 = (1,0 \ .,1)
-
-matrix B1 = (.,0 \ 0,.)
-
-svar im ti, lags(1/2) aeq(A1) beq(B1)
+svar inf desempleo interes, lags(1/2) aeq(A1) beq(B1)
 
 matlist e(A)
 matlist e(B)
 
-irf create svar_irf , step(36) set(irf_2) replace
-
-irf graph sirf, impulse(ti im) response(ti im) xtitle("Periodos") 
+irf create svar_irf, step(36) set(irf_2) replace
+irf graph sirf, impulse(inf desempleo interes) response(inf desempleo interes) xtitle("Periodos")
 
 
