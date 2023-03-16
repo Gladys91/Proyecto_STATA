@@ -1,168 +1,111 @@
-# Conceptos Básicos
+# MODELOS DE PROBABILIDAD NO LINEAL
 
-### 2 CREACIÓN E IMPORTACIÓN DE DATOS
+Cuando la variable dependiente toma dos valores, típicamente 1 y 0. La estimación de un modelo con esta característica empleando la metodología MCO convencional se conoce como el modelo de probabilidad lineal, sin embargo su estimación presenta los siguientes problemas:
 
-Hay distintas formas de crear una base de datos. Repasemos tres formas:
+- Predicciones fuera de muestra (nada garantiza que las predicciones del modelo se encuentren en el intervalo de 0 a 1)
+- La perturbación aleatoria no sigue una distribución normal
+- Presencia de problema de heterocedasticidad
 
-- _Creando una base de datos a mano en el editor de datos_,  para acceder al editor de datos, escribimos `edit` en la ventana de comandos. Esto nos permite editar ‘manualmente’ los datos como si fuera una hoja de cálculo. 
+Caminos alternativos que superan los problemas anteriores se basan en estimaciones no lineales bajo la metodología de máxima verosimilitud. 
 
-- _Copiando y pegando los datos_, para copiar datos se debe acceder de la misma manera que en el punto previo. En el navegador de datos en modo de edición se pueden copiar datos usando las opciones conocidas como control+v o mediante click derecho. Hasta este punto se explotan las posibilidades del editor de datos como si fuera una hoja de cálculo (Excel).
+### 2 PROBIT Y LOGIT
 
-- _Creando una base de datos en el do-file_, crear una base de datos desde el do-file permite disminuir los posibles errores que se presenten al hacer las cosas ‘a mano’. En primer lugar, se debe establecer la extensión (en términos de filas) de la base de datos con el comando `set obs` seguido por el número de observaciones. A partir de esta ‘cáscara’ se crean nuevas variables.
+Los modelos tipo probit y logit asumen que el término de error aleatorio siguen una distribución normal y logística respectivamente, para su estimación se usan los comandos `probit` y `logit` respectivamente. 
 
-También podemos combinar estas formas.
+Trabajaremos con la base de datos de Hosmer & Lemeshow que se encuentra en la memoria del propio stata, utilizando el comando `syuse` para abrirlo. Procederemos a estimar los modelos logit y probit para luego compararlos en una tabla haciendo uso del comando `esttab`.
 
-#### 2.1.1 Usando el editor de datos para crear una base
-
-Para asegurarnos que no tenemos ninguna base abierta usemos el comando `clear` en la ventana de comandos. Luego, abrimos el editor de datos con el comando `edit` en la ventana de comandos.
-
-![image](https://user-images.githubusercontent.com/106888200/223178593-8fe33262-1709-49dc-b478-89cdd1423558.png)
-
-Creemos una base de datos de los principales equipos de fútbol del Perú junto a su color característico y el número de veces que salieron campeones del Descentralizado imputando cada valor en el editor de datos:
-
-![image435](https://user-images.githubusercontent.com/106888200/223178370-8458c2d4-c866-40a6-8bbb-a753df751d9a.png)
-
-
-
-> **TIPS:  `clear` vs `clear all`**
->
->Si bien la mayoría de la gente usa `clear` para borrar el conjunto de datos y las etiquetas, `clear all` hace borrón y cuenta nueva. Usa este último si estás trabajando matrices, mata, marcos, programas, etc.
-
-
-#### 2.1.2 Copiando datos en el editor de datos
-
-Antes de copiar una base, limpiemos el navegador de datos usando el comando clear en la ventana de comando. Abramos el excel de ejemplo, ‘cuadro-19-4, seleccionamos las filas que van desde Amazonas hasta Lima para todos los años de la siguiente manera:
-
-![image436](https://user-images.githubusercontent.com/106888200/223179332-7e726872-ff50-4584-ae2f-818eea8f4891.png)
-
-Copiamos los datos usando `ctrl+c`. Ahora, se puede pegar directamente en el editor de datos usando `ctrl+v`.
-Como vemos, luego de pegar aún se puede mejorar la base editando los nombres de las variables antes de guardarla.
-
-![image437](https://user-images.githubusercontent.com/106888200/223179886-461fec04-b655-4e71-9e26-94c3eaf270b6.png)
-
-Editamos los nombres de cada variable para pulir la base antes de guardarla.
-
-![image438](https://user-images.githubusercontent.com/106888200/223179927-77340fc0-c853-40f9-9ac9-97523ccf2c2f.png)
-
-#### 2.1.3 Creando una base en el do-file
-
-Abramos el editor de do-files. En este caso vamos a crear un cascarón (o shell) que definirá la extensión de los datos. Supongamos que estamos revisando archivos históricos y debemos de almacenar cada dato con algún comentario para doce meses de un año. Hacerlo a mano puede generar problemas para editar posteriormente. Así que lo hacemos dato a dato en el do-file. Veamos el ejemplo:
 
 ```
-*--------------------------------------
-*Crear la cáscara de una base de datos
-*--------------------------------------
+clear all
+sysuse lbw 
 
-* Fijamos el número de observaciones
+**********
 
-clear // Limpiamos el navegador de datos previos
-set obs 12 // Se consideran solo 100 filas
+logit low age lwt i.race smoke ht, robust // Logit
+est store logit
 
-gen value =.  // Valor a almacenar *estamos generando una variable vacia*
+probit low age lwt i.race smoke ht, robust // Probit
+est store probit
 
-gen note = "" // Nota del valor almacenado se pone comilla porque trabajaremos con letra
-
-gen mes = _n // Mes *se genera con n con el numero de cada espacio*
-
-/* Reemplazamos los datos para cada mes 	*/
-
-* Enero
-replace value = 0.2 if mes == 1
-
-replace note = "Los archivos históricos indican que ...." if mes == 1
-
-* Febrero
-replace value = 0.4 if mes == 2
-
-replace note = "A diferencia del mes previo, ahora ..." if mes == 2
+esttab logit probit, mtitle("Logit" "Probit") pr2
 ```
 
-![image](https://user-images.githubusercontent.com/106888200/223186559-60ac1fc2-ab1c-4ad5-9426-bc4c8699cca7.png)
+![image](https://user-images.githubusercontent.com/106888200/225504213-32942ff9-4594-44f7-97ed-b4da83cdfbcc.png)
 
-### 2.2 IMPORTANDO DATOS DE DISTINTOS FORMATOS
 
-Para poder cargar datos a Stata es necesario saber el formato del archivo que se desea cargar. En base a esto, habrán dos tipos de soluciones: 
+#### 2.1. Efecto marginal
 
-- Si los datos están en formato ‘.dta’ (el formato propio de Stata) entonces se usa el comando use seguido por la dirección en donde se almacena la carpeta.
-- Otros formatos comunes son:
-‘.xlsx’ o ‘.xls’ para Excel.
-‘.csv’ (Comma Separated Values) para archivos almacenados como texto y separados por algún caracter (puede ser comas, punto y comas, espacios, entre otros).
-También se puede cargar formatos menos comunes como ODBC, SAS, etc.
+En ambos modelos el efecto marginal depende de todas las variables así como de la propia función de densidad f (·) por lo que no existe un único efecto marginal. Un par de opciones para encontrar un efecto marginal pueden ser:
 
-#### 2.2.1 Cargando una base de datos en formato de Stata
-
-El comando para cargar bases en formato ‘.dta’ es `use`. 
-
-Para usarlo es necesario indicar el nombre del archivo junto a la dirección de la carpeta en donde se encuentra guardado. Para que la base sea cargada de manera correcta es necesario no tener alguna base previa. La opción `clear` luego de la coma permite limpiar el navegador de datos de cualquier base previa. De esta manera se puede cargar la base. De no indicar esto, aparecerá una advertencia en la ventana de resultados indicándonos que no podemos cargar la base. Veamos un ejemplo.
-
-##### 2.2.1.1 use filename, clear
-
-El comando `use` se usa para cargar no solo bases que estén físicamente en alguna carpeta de la computadora, también sirve para cargar datos que ya se encuentren en internet. Este es el caso del ejemplo inicial sobre uso de do-files. 
+- Estimar el efecto marginal en el promedio de las variables con el comando `margins` y colocando al final post atmeans.
 
 ```
-use "http://fmwww.bc.edu/ec-p/data/wooldridge/openness", clear	
+estimates restore logit
+margins, dydx(*) post atmeans
+est store em_logit_mean
+
+estimates restore probit
+margins, dydx(*) post atmeans
+est store em_probit_mean
+
+esttab em_logit_mean em_probit_mean , mtitle("Logit" "Probit") title("Efectos marginal en los promedios de las variables") p 
 ```
 
-Veamos un caso más común en donde se tiene un archivo en alguna carpeta de la computadora:
+![image](https://user-images.githubusercontent.com/106888200/225517793-5c8c70b5-f7de-48cc-b11f-69d658497aa8.png)
+
+- Estimar el efecto marginal promedio `margins` y colocando al final post.
 
 ```
-cd "C:/Users/Usuario/Documents/GitHub/Proyecto_STATA/_Análisis/Data" // coloca la dirección donde se encuentra tu base de datos
-use "sumaria-2020.dta", clear
+estimates restore logit
+margins, dydx(*) post
+est store em_logit
+
+estimates restore probit
+margins, dydx(*) post 
+est store em_probit
+
+esttab em_logit em_probit , mtitle("Logit" "Probit") title("Efectos marginal promedio") p 
 ```
 
+![image](https://user-images.githubusercontent.com/106888200/225517926-b12d1751-fad6-439e-9a7e-095cec2babe6.png)
 
-#### 2.2.2 Importar archivos de Excel
+#### 2.2 ODDS Y RATIO ODDS
 
-Una alternativa a copiar y pegar desde excel es cargar la misma base desde Excel respetando su formato original. Esto permite disminuir los posibles errores humanos que puede haber al manipular los datos. Para ello, usamos el comando import Excel de la siguiente manera: 
-
-```
-import excel using "relaciones_extramaritales.xlsx", clear	
-```
-
-Podemos usar el comando de manera similar al use al indicar la carpeta de origen de la base de datos. En este caso es necesario identificar el formato exacto que será cargado, esto es, si es un archivo ‘.xlsx’ o ‘.xls’ (el formato ‘.xlsx’ es más moderno que ‘.xls’). 
-Adicionalmente, hay distintas opciones que se pueden indicar luego de la coma (además del ya conocido clear):
-
-- sheet("sheetname"): Si se tienen distintas pestañas en un mismo archivo, podemos cargar una en específico indicando su nombre en sheetname (entre comillas).
-- firstrow: Permite tomar la primera fila de los datos como nombre de las variables. Si no hacemos esto, la primera fila será considerada como datos generando problemas en la base.
-
-```
-import excel using "relaciones_extramaritales.xlsx", clear firstrow 
-br 
+El estadístico odds mide el cociente de probabilidades para una observación i de elegir la opción 1 frente a la opción 0; es decir
  
-import excel using "relaciones_extramaritales.xlsx", clear firstrow  sheet ("Hoja2")
-br
+$$odds=\frac{P_i}{1-P_0}$$
 
-/* 
-- Si se tiene un archivo excel con muchas hojas y no se especifica la opción sheet, Stata cogerá la primera hoja	
-- El comando br nos permite ver la base de datos que se ha cargado
-*/	
-```
+De este modo, si la ratio odds es
+• mayor que 1: es alta la probabilidad de que ocurra el evento.
+• menor que 1: es baja la probabilidad de que ocurra el evento.
 
-![image](https://user-images.githubusercontent.com/106888200/223273860-93aad7f7-a08a-4c1f-9833-c26142b738eb.png)
-
-
-#### 2.2.3 Importar archivos ‘.csv’
-
-Los archivos ‘.csv’ son archivos de texto (esto significa que pueden abrirse en cualquier editor de texto como Bloc de notas o Word) en donde los valores de las variables están separadas por algún carácter. Por ejemplo, por comas o punto y comas:
-
-![image408](https://user-images.githubusercontent.com/106888200/223274969-3bf99dc7-12a2-448b-b0d8-d32ccfe8e6c3.jpg)
-
-Por ejemplo, se tiene datos de longitud y altitud separados por comas. Para conocer qué tipo de carácter está siendo utilizado como separador podemos abrir el archivo desde el bloc de notas.
-
-#### 2.2.4 Importar delimited filename, delimiters("chars")
-
-El comando usado para cargar archivos ‘.csv’ es muy similar al usado para cargar bases en excel. Hay una diferencia principal. En este caso es necesario indicar qué carácter está siendo usado como separador con la opción delimiter(" "). Dentro del paréntesis debemos indicar el caractér, por ejemplo: delmiter(",") o delmiter(";")
+Se utiliza el comando `or`, veamos el ejemplo:
 
 ```
-import delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
-insheet delimited using "RECH0.csv", delimiter(",") clear // formatos .csv
+logit low age lwt i.race smoke ht, or
 ```
 
-Al igual que en el caso de archivos de Excel, es necesario indicar la extensión del archivo al momento de indicar la dirección y el nombre. Por último, esta sintaxis también permite cargar archivos que tengan la extensión ‘.txt’ o ‘.tex’. Veamos un ejemplo de todo lo presentado:
+#### 2.3 CRITERIOS DE SELECCIÓN SEGÚN LA BONDAD DE AJUSTE
 
-![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
+los criterios de selección según bondad de ajuste son: 
 
+1. Porcentaje de predicciones correctas, su exito dependerá de qué tan bien balanceada esté la muestra.
+2. Criterio de Akaike, la estimación que tenga menor AIC, es la que tiene mejor ajuste.
+3. Ratio de verosimilitud o Pseudo $R^2$, el modelo que tenga mayor LR tiene mejor ajuste.
 
+Para poder visualizar estos criterios de selección, previamente de sebe instalar el comando `fitstat`, seguido se deben correr las regresiones y guardar sus resultados de bondad de ajuste:
+
+```
+qui: estimates restore probit
+quietly fitstat, saving(prob)
+
+qui: estimates restore logit
+quietly fitstat, saving(log)
+
+fitstat, using(prob) force
+```
+
+![image](https://user-images.githubusercontent.com/106888200/225520865-8c09fea8-9bc8-4f53-980a-8b9c2aac5251.png)
 
 ## Sigue aprendiendo
 | Recurso  | Tema | Descripción |
