@@ -1,6 +1,8 @@
-* Crearemos nuestra base de datos con datos mensuales de la tasa de interés, tasa de desempleo y tasa de inflación para lo cual importaremos las series descargadas del BCRP.
+/* Crearemos nuestra base de datos con datos mensuales de la tasa de interés, tasa de desempleo y tasa de inflación para lo cual importaremos las series descargadas del BCRP, limpiaremos cada serie para luego realizar un merge y formar nuestra nueva base de datos.*/
 
-*Cargamos y limpiamos la serie de tasa de interés
+cd "" // //colocar el directorio donde está tu base en formato xlsx
+
+*Trabajamos con la 1era serie: importamos y limpiamos la serie de tasa de interés
 import excel using "Mensuales-20200803-010124.xlsx", clear 
 drop in 1/2
 rename (*) (t interes)
@@ -34,10 +36,10 @@ format date %tm
 keep date interes
 
 tempfile interes
-save `interes', replace
+save `interes', replace //guardamos en la memoria temporal de Stata
 
 
-* Cargamos y limpiamos la serie de tasa de desempleo
+*Trabajamos con la 2da serie: importamos y limpiamos la serie tasa de desempleo
 import excel using "Mensuales-20200803-005910.xlsx", clear 
 drop in 1/2
 rename (*) (t desempleo)
@@ -71,10 +73,10 @@ format date %tm
 keep date desempleo
 
 tempfile desempleo
-save `desempleo', replace
+save `desempleo', replace //guardamos en la memoria temporal de Stata
 
 
-* Cargamos y limpiamos la serie de tasa de inflación
+* Trabajamos con la 3era serie: importamos y limpiamos la serie de tasa de inflación
 import excel using "Mensuales-20200803-011320.xlsx", clear 
 drop in 1/2        //eliminamos los encabezados
 rename (*) (t inf) // cambiamos nombre de las variables
@@ -106,6 +108,10 @@ gen date = ym(year, mes)
 format date %tm
 
 keep date inf
+
+************* Merge  *************
+*Realizamos un merge de con las series de tiempo  interés y desempleo
+
 
 merge 1:1 date using `interes', nogen keep(3)
 merge 1:1 date using `desempleo', nogen keep(3)
