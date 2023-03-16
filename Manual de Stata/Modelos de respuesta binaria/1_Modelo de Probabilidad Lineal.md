@@ -21,16 +21,18 @@ ordinal
 En los modelos binarios, la variable dependiente toma dos valores de la siguiente manera:
 
 $Y_i$ = 1 con probabilidad p
-        0 con probabilidad 1-p
+
+$Y_i$ = 0 con probabilidad 1-p
 
 En donde 1 indica la ocurrencia del evento y 0 la no ocurrencia del evento. Su distribución incondicional está dada por:
 
-E(Y) = Pr(Y=1)=p
-V(Y) = p(1-p)
+$E(Y) = Pr(Y=1)=p$
+
+$V(Y) = p(1-p)$
 
 Mientras que la distribución condicional está dada por:
 
-E(Y |X = x) = Pr(Y = 1|X = x) = p(x)
+$E(Y |X = x) = Pr(Y = 1|X = x) = p(x)$
 
 El último término, p(x) es clave para diferenciar los modelos usados a continuación.
 
