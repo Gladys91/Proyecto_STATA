@@ -1,6 +1,6 @@
 # Panel de datos
 
-## 1.  CONOCIENDO LA INTERFAZ
+## MODELOS DE PANEL DE DATOS
 
 
 
