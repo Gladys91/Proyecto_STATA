@@ -19,7 +19,7 @@ keep conglome vivienda hogar ubigeo dominio estrato  factor07 nbi1 nbi2 nbi3 nbi
 
 merge 1:1 conglome vivienda hogar using "sumaria-2020.dta", keepus (pobreza mieperho)
 
-drop if _merge==1
+drop if _merge!=3
 drop _merge
 
 /*Hasta este punto puedes seguir haciendo merge con otras bases según las variables que necesites o puedes proceder a trabajar mejorando más tu base de datos como renombrando variables, recodificando tus variables o generando nuevas variable para luego procedera a guardar tu do file y base de datos*/
