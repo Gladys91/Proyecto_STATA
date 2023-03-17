@@ -1,9 +1,13 @@
-# Conceptos Básicos
+# Modelos Multinomiales
 
-### 2 CREACIÓN E IMPORTACIÓN DE DATOS
+### 2 LOGIT ORDENADO
 
-Hay distintas formas de crear una base de datos. Repasemos tres formas:
+Una variable categórica es ordinal cuando entre sus categorías existe un ordenamiento natural y jerárquico. 
+Por ejemplo si se desea estudiar los determinandtes del nivel educativo alcanzado. Las categorías "sin instrucción", "primaria", "secundaria" y "superior" tienen un orden jerárquico natural pues para pasar a la siguiente etapa se debe haber superado el anterior.
 
+El logit ordenado se estima con el objetivo de determinar de forma paramétrica la probabilidad de pertenencia en cada una de las categorías contempladas. El modelo tiene la siguiente forma:
+
+$$Y*=\betaz_i+e_i
 
 
 ## Sigue aprendiendo
