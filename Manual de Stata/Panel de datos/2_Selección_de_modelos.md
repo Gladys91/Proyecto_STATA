@@ -2,7 +2,6 @@
 
 ### 2 SELECCIÓN DE MODELOS
 
-![image](https://user-images.githubusercontent.com/106888200/223322804-3b8740f9-9142-4d7d-9548-9d2f78785d7b.png)
 
 
 
