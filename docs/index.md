@@ -1,4 +1,3 @@
-
 ---
 # STATA ECOPUCP
 ---
