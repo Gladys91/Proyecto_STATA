@@ -1,3 +1,5 @@
+![logo](https://github.com/Gladys91/Proyecto_STATA/assets/106888200/73886e20-d598-4c72-9728-9063f6e9fa61)
+
 ---
 # STATA ECOPUCP
 ---
